@@ -1,0 +1,5 @@
+Únicos end-points que se pueden utilizar
+Videojuegos: "https://api.rawg.io/api/games"
+Por id: "https://api.rawg.io/api/games/{id}"
+Por nombre: "https://api.rawg.io/api/games?search={game}"
+Por genero: "https://api.rawg.io/api/genres"
