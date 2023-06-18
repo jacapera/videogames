@@ -7,13 +7,13 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('videogame', {
     id:{
-      type: DataTypes.UUID,
-      defaultValue: uuidv4,
+      type: DataTypes.STRING,
       primaryKey: true,
       allowNull: false,
     },
-    idRawg:{
+    idGameRawg:{
       type: DataTypes.INTEGER,
+      unique: true,
     },
     name:{
       type: DataTypes.STRING,
@@ -32,5 +32,5 @@ module.exports = (sequelize) => {
     fechaDeLanzamiento:{
       type: DataTypes.DATEONLY,
     }
-  });
+  }, {timestamps: false});
 };
