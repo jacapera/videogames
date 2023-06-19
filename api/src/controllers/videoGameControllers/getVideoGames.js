@@ -41,10 +41,12 @@ const getVideoGames = async () => {
     return {
       idGameRawg: game.id,
       name: game.name,
-      descripcion: game.description,
-      plataformas: game.platforms,
-      imagen: game.background_image,
-      fechaDeLanzamiento: game.released
+      description: game.description,
+      platforms: game.platforms,
+      image: game.background_image,
+      released: game.released,
+      rating: game.rating,
+      genres: game.genres,
     }
   });
   console.log(videogames.length);

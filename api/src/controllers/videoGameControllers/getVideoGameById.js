@@ -6,11 +6,6 @@ const { API_KEY } = process.env;
 // Se trae un game por id de la api
 // Por ahora devolvemos integrando id de la api y id de la BD
 const getVideoGameById = async (idVideogame) => {
-  if(!idVideogame){
-    const error = new Error(`Debe ingresar un ID para buscar el videogame`);
-    error.statusCode = 400;
-    throw error;
-  }
   // Función para buscar videogame en la BD
   const findGameBD = async (idVideogame) => {
     return await Videogame.findOne({
@@ -25,10 +20,12 @@ const getVideoGameById = async (idVideogame) => {
       const gameObj = {
         idGameRawg: data.id,
         name: data.name,
-        descripcion: data.description,
-        plataformas: data.platforms,
-        imagen: data.background_image,
-        fechaDeLanzamiento: data.released
+        description: data.description,
+        platforms: data.platforms,
+        image: data.background_image,
+        released: data.released,
+        rating: data.rating,
+        genres: data.genres,
       }
       return gameObj;
     } catch (error) {

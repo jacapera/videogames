@@ -1,9 +1,5 @@
-require('dotenv').config();
 const controllers = require('../controllers/index');
 const { Router } = require('express');
-const { Videogame, Genre } = require('../db')
-
-const URL = 'https://api.rawg.io/api/';
 
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -13,13 +9,6 @@ const router = Router();
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
-router.get('/videogames', async (req, res) => {
-  try {
-    return res.status(200).json(await controllers.getVideoGames());
-  } catch (error) {
-    return res.status(500).json({message: error.message});
-  }
-});
 
 router.get('/videogames/name', async (req, res) => {
   try {
@@ -27,8 +16,8 @@ router.get('/videogames/name', async (req, res) => {
     return res.status(200).json(await controllers.getVideoGamesByName(name));
   } catch (error) {
     return error.statusCode
-      ? res.status(error.statusCode).json({message: error.message})
-      : res.status(500).json({message: error.message})
+    ? res.status(error.statusCode).json({message: error.message})
+    : res.status(500).json({message: error.message})
   }
 });
 
@@ -43,6 +32,14 @@ router.get('/videogames/:idVideogame', async (req, res) => {
   }
 });
 
+router.get('/videogames', async (req, res) => {
+  try {
+    return res.status(200).json(await controllers.getVideoGames());
+  } catch (error) {
+    return res.status(500).json({message: error.message});
+  }
+});
+
 router.get('/genres', async (req, res) => {
   try {
     return res.status(200).json(await controllers.getGenres());
@@ -53,11 +50,11 @@ router.get('/genres', async (req, res) => {
 
 router.post('/videogames', async (req, res) => {
   try {
-    const { game, genres } = req.body;
-    const newGame = await Videogame.create(game)
-
+    return res.status(200).json(await controllers.postVideoGame(req.body));
   } catch (error) {
-    
+    return error.statusCode
+      ? res.status(error.statusCode).json({message: error.message})
+      : res.status(500).json({ message: error.message })
   }
 });
 

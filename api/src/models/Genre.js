@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       unique: true,
     },
-    nombre:{
+    name:{
       type: DataTypes.STRING,
     }
   }, {timestamps: false})

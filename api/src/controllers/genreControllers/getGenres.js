@@ -14,7 +14,7 @@ const getGenres = async () => {
       return {
         id:`${uuidv4()}-${genre.id}`,
         idGenreRawg: genre.id,
-        nombre: genre.name,
+        name: genre.name,
       }
   });
   const genresBD = await Genre.bulkCreate(genresApi,{

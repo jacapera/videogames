@@ -1,0 +1,76 @@
+@font-face {
+  font-family: 'Get IndieFlower-Regular';
+  src: url('../../font/IndieFlower-Regular.ttf') format('truetype');
+  /* Si el archivo tiene una extensión diferente, ajusta el valor format según corresponda */
+}
+.landingPage{
+  font-family: 'Get IndieFlower-Regular';
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 97%;
+  height: 100vh;
+  padding: 15px;
+  background-color: rgb(68, 67, 67);
+  border: 5px solid white;
+  gap: 2px;
+}
+.divImg{
+  width: 60%;
+  height: 100vh;
+}
+img{
+  width: 100% ;
+  height: 100vh;
+  border-radius: 5px;
+  box-shadow: 0 4px 10px #e9e1e1e0;
+  transition: transform 1s ease;
+}
+img:hover {
+  transform: scale(1.5);
+}
+.divImg {overflow: hidden;}
+
+.divMsg{
+  display: flex;
+  flex-wrap: wrap;
+  width: 40%;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #4b4953;
+}
+.divMsg h1{
+  font-size: 3rem;
+  color: #030303;
+  font-weight: bold;
+  margin: 5px;
+  border-radius: 8px;
+  padding: 5px;
+  box-shadow: 0 4px 9px #5f5f61;
+}
+
+.button {
+  font-family: 'Get IndieFlower-Regular';
+  width: 150px;
+  display: inline-block;
+  padding: 8px 20px;
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  color: #0c0a0a;
+  background-color: #ffee00;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 0px;
+}
+
+.button:hover {
+  background-color: #ffbb00;
+  transform: scale(1.1)
+}
