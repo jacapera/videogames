@@ -1,5 +1,28 @@
 .navBar{
   display: flex;
-  height: 100px;
-  background-color: gray;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+}
+
+.button {
+  width: 150px;
+  display: inline-block;
+  padding: 8px 20px;
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  color: #ece8e8;
+  background-color: #4b049c;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 0px;
+}
+
+.button:hover {
+  background-color: #ffbb00;
+  transform: scale(1.1)
 }

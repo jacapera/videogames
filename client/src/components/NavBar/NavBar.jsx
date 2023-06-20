@@ -1,14 +1,35 @@
 import React from 'react';
 import style from './NavBar.module.css'
-import SearchBar from '../SearchBar/SearchBar';
+import { useDispatch } from 'react-redux';
+import { getVideoGames } from '../../redux/action';
+import { useNavigate } from 'react-router-dom';
 
 const NavBar = (props) => {
 
+  // Estados y variables locales
+  // ----------------------------------------------------
+  const navigate = useNavigate();
+
+  // Estados y actions globales
+  // ----------------------------------------------------
+  const dispatch = useDispatch();
+
+  // Funciones locales
+  // ----------------------------------------------------
+  const irHome = () => {
+    navigate('/home');
+    dispatch(getVideoGames());
+  };
+
+  // Funciones Ciclo de vida del Componente
+  // ---------------------------------------------------
+  // useEffect(() => {
+
+  // }, []);
 
   return(
     <div className={style.navBar}>
-      <h1>NAVBAR</h1>
-      <SearchBar />
+      <button className={style.button} onClick={irHome}>HOME</button>
     </div>
   )
 };

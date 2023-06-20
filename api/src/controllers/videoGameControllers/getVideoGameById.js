@@ -18,7 +18,7 @@ const getVideoGameById = async (idVideogame) => {
     try {
       const {data} = await axios.get(`https://api.rawg.io/api/games/${idVideogame}?key=${API_KEY}`)
       const gameObj = {
-        idGameRawg: data.id,
+        id: data.id,
         name: data.name,
         description: data.description,
         platforms: data.platforms,

@@ -39,7 +39,7 @@ const getVideoGames = async () => {
   const { data } = await axios.get(`${URL}`);
   let videogames = data.results.map(game => {
     return {
-      idGameRawg: game.id,
+      id: game.id,
       name: game.name,
       description: game.description,
       platforms: game.platforms,

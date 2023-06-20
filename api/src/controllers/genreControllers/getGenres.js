@@ -12,15 +12,14 @@ const getGenres = async () => {
   const {data} = await axios.get(`${URL}`);
   genresApi = data.results.map(genre => {
       return {
-        id:`${uuidv4()}-${genre.id}`,
-        idGenreRawg: genre.id,
         name: genre.name,
       }
   });
   const genresBD = await Genre.bulkCreate(genresApi,{
     onConflict: { doNothing: true },
   });
-  return genresBD;
+  const allGenresBD = await Genre.findAll();
+  return allGenresBD;
 };
 
 module.exports = getGenres;

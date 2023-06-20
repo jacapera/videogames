@@ -7,27 +7,29 @@
   font-family: 'Get IndieFlower-Regular';
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-  width: 97%;
+  width: 100%;
   height: 100vh;
   padding: 15px;
-  background-color: rgb(68, 67, 67);
+  background-color:#514c4a;
   border: 5px solid white;
-  gap: 2px;
+  gap: 25px;
 }
 .divImg{
-  width: 60%;
-  height: 100vh;
+  width: 50%;
+  height: 95vh;
+  border-radius: 50%;
+  box-shadow: 0 4px 20px #b3b9b3;
 }
-img{
+.imgLanding{
   width: 100% ;
   height: 100vh;
   border-radius: 5px;
-  box-shadow: 0 4px 10px #e9e1e1e0;
-  transition: transform 1s ease;
+  box-shadow: 0 4px 20px #b3b9b3;
+  transition: transform 2s ease;
 }
-img:hover {
+.imgLanding:hover {
   transform: scale(1.5);
 }
 .divImg {overflow: hidden;}
@@ -36,20 +38,27 @@ img:hover {
   display: flex;
   flex-wrap: wrap;
   width: 40%;
-  height: 100vh;
+  height: 95vh;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-evenly;
   align-items: center;
-  background-color: #4b4953;
+  background-color:  #514c4a;
+  border-radius: 5px;
 }
 .divMsg h1{
   font-size: 3rem;
   color: #030303;
   font-weight: bold;
+  text-align: center;
   margin: 5px;
   border-radius: 8px;
   padding: 5px;
-  box-shadow: 0 4px 9px #5f5f61;
+  box-shadow: 0 4px 9px #b3b9b3;
+  background-color: rgba(142,123,114,255);
+  transition: transform 1s ease;
+}
+.divMsg h1:hover{
+  transform: scale(1.1);
 }
 
 .button {

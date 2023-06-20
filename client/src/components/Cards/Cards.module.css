@@ -1,3 +1,8 @@
 .cards{
-  background-color: green;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: space-evenly;
+  padding: 15px;
+  border: 1px solid black;
 }

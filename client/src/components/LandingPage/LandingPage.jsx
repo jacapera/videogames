@@ -6,8 +6,12 @@ import { useNavigate } from 'react-router-dom';
 
 const LandingPage = (props) => {
 
+  // Estados y variables locales
+  // ----------------------------------------------------
   const navigate = useNavigate();
 
+  // Funciones locales
+  // ----------------------------------------------------
   const irHome = () => {
     navigate('/home');
   };
@@ -15,7 +19,7 @@ const LandingPage = (props) => {
   return (
     <div className={styles.landingPage}>
       <div className={styles.divImg}>
-        <img src= {image} alt="image"/>
+        <img className={styles.imgLanding} src= {image} alt="image"/>
       </div>
       <div className={styles.divMsg}>
         <h1>Hola y bienvenid@!</h1>

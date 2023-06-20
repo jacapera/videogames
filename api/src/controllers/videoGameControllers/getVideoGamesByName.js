@@ -18,7 +18,7 @@ const getVideoGamesByName = async (name) => {
   const {data} = await axios.get(`${URL}&search=${encodeURIComponent(formattedName)}&search_precise=true&page_size=15`);
   const gamesByName = data.results.map(game => {
     return {
-      idGameRawg: game.id,
+      id: game.id,
       name: game.name,
       description: game.description,
       platforms: game.platforms,
