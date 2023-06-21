@@ -1,3 +1,5 @@
+/*                               PRINCIPAL                                */
+/*------------------------------------------------------------------------*/
 .card{
   display: flex;
   flex-direction: column;
@@ -7,16 +9,19 @@
   height: 300;
   border: 2px solid rgb(20, 2, 87);
   border-radius: 15px;
-  padding: 10px;
+  padding: 5px;
   background-color: rgb(62, 4, 117);
 }
 
+/*                        NOMBRE DEL JUEGO                                */
+/*------------------------------------------------------------------------*/
 .divName{
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: auto;
+  padding:2px;
   text-align: center;
   font-weight: bold;
   border: 1px solid darkblue;
@@ -25,6 +30,8 @@
   background-color: rgb(210, 186, 219);
 }
 
+/*                        IMAGEN DEL JUEGO                                */
+/*------------------------------------------------------------------------*/
 .divImg{
   display: flex;
   width: 100%;
@@ -37,6 +44,21 @@
 
 }
 
+/*                        RATING DEL JUEGO                                */
+/*------------------------------------------------------------------------*/
+.divRating{
+  display: flex;
+  width: 100%;
+  padding: 3px;
+  justify-content: center;
+  background-color: blueviolet;
+  border: 1px solid darkblue;
+  font-size: 0.9rem;
+}
+
+
+/*                        GENEROS DEL JUEGO                                */
+/*------------------------------------------------------------------------*/
 .divGenres{
   display: flex;
   flex-wrap: wrap;

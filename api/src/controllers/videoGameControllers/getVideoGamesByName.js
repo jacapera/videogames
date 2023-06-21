@@ -15,7 +15,7 @@ const getVideoGamesByName = async (name) => {
   }
   const formattedName = name.toLowerCase();
   // Busqueda en la API
-  const {data} = await axios.get(`${URL}&search=${encodeURIComponent(formattedName)}&search_precise=true&page_size=15`);
+  const {data} = await axios.get(`${URL}&search=${encodeURIComponent(formattedName)}&search_precise=true&page_size=150`);
   const gamesByName = data.results.map(game => {
     return {
       id: game.id,

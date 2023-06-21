@@ -7,10 +7,10 @@ module.exports = (sequelize) => {
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
-    // idGenreRawg:{
-    //   type: DataTypes.INTEGER,
-    //   unique: true,
-    // },
+    idGenreRawg:{
+      type: DataTypes.INTEGER,
+      unique: true,
+    },
     name:{
       type: DataTypes.STRING,
     }

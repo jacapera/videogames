@@ -11,6 +11,9 @@ const Card = (props) => {
       <div className={style.divImg}>
         <img className={style.imgCard} src={props.image} alt="videogame" />
       </div>
+      <div className={style.divRating}>
+        <h3>Rating: ⭐{props.rating}</h3>
+      </div>
       <div className={style.divGenres}>
         {
           props.genres.map(genre => <p key={genre.id}>{genre.name}</p>)

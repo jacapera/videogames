@@ -5,6 +5,8 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import Home from './components/Home/Home';
 import NavBar from './components/NavBar/NavBar';
 import Cards from './components/Cards/Cards';
+import Form from './components/Form/Form';
+import SearchBar from './components/SearchBar/SearchBar';
 function App() {
 
   const location = useLocation();
@@ -16,6 +18,8 @@ function App() {
       <Routes>
         <Route path={'/home'} element={<Home />}/>
         <Route path={'/cards'} element={<Cards />}/>
+        <Route path={'/search'} element={<SearchBar />} />
+        <Route path='/createVideoGame' element={<Form />} />
       </Routes>
     </div>
   );

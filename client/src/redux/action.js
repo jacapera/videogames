@@ -1,4 +1,12 @@
-import { ERROR, GET_GENRES, GET_VIDEOGAMES, GET_VIDEOGAME_NAME, RESET_ERROR } from "./action-type";
+import {
+  ERROR,
+  FILTER_GENRE,
+  GENRE_FILTER,
+  GET_GENRES,
+  GET_VIDEOGAMES,
+  GET_VIDEOGAME_NAME,
+  RESET_ERROR
+} from "./action-type";
 import axios from "axios";
 
 
@@ -7,6 +15,7 @@ export const getVideoGames = () => {
     try {
       const response = await fetch('http://localhost:3005/videogames');
       const data = await response.json();
+      console.log(data[0])
       return dispatch({
         type: GET_VIDEOGAMES,
         payload: data
@@ -60,7 +69,6 @@ export const getGenres = () => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`http://localhost:3005/genres`);
-      console.log(data);
       return dispatch({
         type: GET_GENRES,
         payload: data
@@ -80,3 +88,11 @@ export const resetError = () => {
     payload: "",
   }
 };
+
+
+export const filterGenre = (genre) => {
+  return {
+    type: FILTER_GENRE,
+    payload: genre,
+  }
+}

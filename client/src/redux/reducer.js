@@ -1,9 +1,11 @@
-const { GET_VIDEOGAMES, GET_VIDEOGAME_NAME, ERROR, RESET_ERROR, GET_GENRES } = require("./action-type");
+const { GET_VIDEOGAMES, GET_VIDEOGAME_NAME, ERROR, RESET_ERROR, GET_GENRES, FILTER_GENRE } = require("./action-type");
 
 const initialState = {
   allVideoGames : [],
+  copyAllVideoGames: [],
   allGenres: [],
   error: "",
+  genreFilter: "",
 };
 
 const reducer = (state = initialState, action) => {
@@ -13,6 +15,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         allVideoGames: payload,
+        copyAllVideoGames: payload,
         error:"",
       }
     case GET_VIDEOGAME_NAME:
@@ -26,6 +29,14 @@ const reducer = (state = initialState, action) => {
         ...state,
         allGenres: payload,
         error:"",
+      }
+    case FILTER_GENRE:
+      const allVideoGamesFiltered = state.copyAllVideoGames.filter(game =>
+        game.genres.some(genre => genre.name === payload)
+      );
+      return {
+        ...state,
+        allVideoGames: allVideoGamesFiltered,
       }
     case ERROR:
       return {

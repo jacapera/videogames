@@ -12,14 +12,23 @@ const getGenres = async () => {
   const {data} = await axios.get(`${URL}`);
   genresApi = data.results.map(genre => {
       return {
+        idGenreRawg: genre.id,
         name: genre.name,
       }
   });
-  const genresBD = await Genre.bulkCreate(genresApi,{
-    onConflict: { doNothing: true },
-  });
-  const allGenresBD = await Genre.findAll();
-  return allGenresBD;
+  // Recorremos genresApi y buscamos en nuestra tabla Genre si exite alguno que venga de la api
+  for (const genre of genresApi) {
+    const existingGenre = await Genre.findOne({
+      where: { idGenreRawg: genre.idGenreRawg }
+    });
+    // Si no existe el genero lo agregamos a nuestra tabla Genre
+    if (!existingGenre) {
+      await Genre.create(genre);
+    }
+  }
+  // Buscamos los generos que existan en nuestra BD y los retornamos
+  const genresBD = await Genre.findAll();
+  return genresBD;
 };
 
 module.exports = getGenres;

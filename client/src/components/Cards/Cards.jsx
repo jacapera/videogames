@@ -14,7 +14,6 @@ const Cards = (props) => {
     dispatch(getGenres());
   }, [])
   
-  console.log(allGenres);
 
   return(
     <div className={style.cards}>
@@ -24,6 +23,7 @@ const Cards = (props) => {
             id={game.id}
             name={game.name}
             image={game.image}
+            rating={game.rating}
             genres={game.genres}
         />)
       }

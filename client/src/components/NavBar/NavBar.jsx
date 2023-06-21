@@ -2,7 +2,7 @@ import React from 'react';
 import style from './NavBar.module.css'
 import { useDispatch } from 'react-redux';
 import { getVideoGames } from '../../redux/action';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSubmitImpl } from 'react-router-dom';
 
 const NavBar = (props) => {
 
@@ -21,6 +21,10 @@ const NavBar = (props) => {
     dispatch(getVideoGames());
   };
 
+  const irCreateVideoGame = () => {
+    navigate('/createVideoGame');
+  };
+
   // Funciones Ciclo de vida del Componente
   // ---------------------------------------------------
   // useEffect(() => {
@@ -30,6 +34,7 @@ const NavBar = (props) => {
   return(
     <div className={style.navBar}>
       <button className={style.button} onClick={irHome}>HOME</button>
+      <button className={style.button} onClick={irCreateVideoGame} >Create Videogame</button>
     </div>
   )
 };

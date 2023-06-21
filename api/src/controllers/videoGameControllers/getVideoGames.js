@@ -35,22 +35,25 @@ const getVideoGames = async () => {
       // const games = await Videogame.bulkCreate(videogames, {
         //   onConflict: { doNothing: true},
         // });
-
-  const { data } = await axios.get(`${URL}`);
-  let videogames = data.results.map(game => {
-    return {
-      id: game.id,
-      name: game.name,
-      description: game.description,
-      platforms: game.platforms,
-      image: game.background_image,
-      released: game.released,
-      rating: game.rating,
-      genres: game.genres,
-    }
-  });
-  console.log(videogames.length);
-  return videogames;
+  let videoGames = [];
+  for(let i = 1; i < 2; i++){
+    const apiData = await axios.get(`${URL}&page=${i}`);
+    let pageGames = apiData.data.results.map(game => {
+      return {
+        id: game.id,
+        name: game.name,
+        description: game.description,
+        platforms: game.platforms,
+        image: game.background_image,
+        released: game.released,
+        rating: game.rating,
+        genres: game.genres,
+      }
+    });
+    videoGames = [...videoGames, ...pageGames];
+  };
+  console.log(videoGames.length);
+  return videoGames;
 };
 
 module.exports = getVideoGames;

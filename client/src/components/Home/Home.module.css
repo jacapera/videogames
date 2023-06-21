@@ -1,6 +1,6 @@
 .home{
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-direction: column;
   height: 100vh;
   padding: 5px;

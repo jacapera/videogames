@@ -1,15 +1,16 @@
 .navBar{
   display: flex;
   align-items: center;
-  justify-content: center;
-  height: 60px;
+  padding: 15px;
+  justify-content: space-between;
+  height: 40px;
 }
 
 .button {
-  width: 150px;
+  width: auto;
   display: inline-block;
   padding: 8px 20px;
-  font-size: 25px;
+  font-size: 1rem;
   font-weight: bold;
   text-align: center;
   text-decoration: none;
