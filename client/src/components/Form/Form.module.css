@@ -1,3 +1,4 @@
+/*----------------------CONTENEDOR PRINCIPAL-------------------------*/
 .form{
   display: flex;
   width: 100%;
@@ -6,41 +7,177 @@
   background-image: url('../../assets/2.webp');
   background-size: cover;
   padding: 15px;
-
 }
 
+/*----------------------CONTENEDOR DEL FORMULARIO -------------------------*/
 .divForm{
   color: rgb(250, 246, 250);
   background-color: rgb(29, 220, 226, .55);
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  width: 290px;
-  height: 600px;
+  justify-content: start;
+  width: auto;
+  height: auto;
   padding: 15px;
   border: 2px solid aqua;
   border-radius: 10px;
 }
+.divForm h2{
+  text-align: center;
+}
 
+/* ----------------    FORMULARIO ------------------- */
+.formCreateGame{
+  display: flex;
+  height: auto;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+/* IZQUIERDA */
+.formIzquierda{
+  width: 270px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  border: 2px solid aqua;
+  border-radius: 10px;
+  padding: 10px;
+}
+.divFormAtribute{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* DERECHA */
+.formDerecha{
+  width: 270px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  border: 2px solid aqua;
+  border-radius: 10px;
+  padding: 10px;
+}
+/* IMAGEN */
+.divImg{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: 2px solid aqua;
+  height: 180px;
+  margin-bottom: 5px;
+}
+.imgCreateForm{
+  width: 100%;
+}
+
+/* ---- CONTENEDOR PARA MOSTRAR LOS GENEROS QUE VA AGREGAR AL NUEVO VIDEOGAME -------*/
+.divFormShowGenre{
+  width: 100%;
+  height: 150px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  border: 2px solid aqua;
+  border-radius: 5px;
+  padding: 8px;
+  margin-bottom: 5px;
+}
+.divFormShowGenreSelected{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  width: 75px;
+  height: 50px;
+  border: 1px solid darkblue;
+  background-color: #4b049c;
+  border-radius: 9px;
+}
+.divFormShowGenreSelected p{
+  font-size: 0.6rem;
+  text-align: center;
+}
+.buttonCloseGenre{
+  display: flex;
+  position: relative;
+  top: -9px;
+  left: 0px;
+  background-color: purple;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  padding: 1px;
+}
+
+/*                           MODAL PARA MOSTRAR MENSAJES                               */
+/*-------------------------------------------------------------------------------------*/
+.divModal{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(20, 19, 19, 0.92);
+  border: 3px solid aqua;
+}
+.divMessage{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  background-color: white;
+  width: 50%;
+  height: auto;
+  font-size: 0.7rem;
+  border: 3px solid black;
+  border-radius: 12px;
+  padding: 15px;
+  gap: 15px;
+  text-align: center;
+}
+
+/*---------------- PARA TODOS LOS INPUTS DEL FORMULARIO -------------------------*/
 .input{
   font-family: 'Montserrat Alternates', sans-serif;
   width: 250px;
   height: 35px;
   border-radius: 7px;
-  border-color: rgb(15, 15, 15);
+  border: 1px solid aqua;
   padding: 5px;
   margin-bottom: 10px;
+  background-color: darkblue;
+  color: white;
+  font-weight: bold;
+}
+.input::placeholder{
+  color: gray;
 }
 .texarea{
   font-family: 'Montserrat Alternates', sans-serif;
   width: 250px;
   height: auto;
   border-radius: 7px;
-  border-color: rgb(15, 15, 15);
+  border: 1px solid aqua;
   padding: 5px;
   margin-bottom: 10px;
+  background-color: darkblue;
+  color: white;
 }
-
+.texarea::placeholder{
+  color:gray;
+}
 .selectGender{
   font-family: 'Montserrat Alternates', sans-serif;
   align-items: center;
@@ -48,7 +185,10 @@
   width: 200px;
   border-radius: 7px;
   font-size: 0.8rem;
-  border: 2px solid black;
+  background-color: darkblue;
+  border: 1px solid aqua;
+  color: white;
+  margin-bottom: 5px;
 }
 
 .button {
