@@ -19,7 +19,7 @@ const LandingPage = (props) => {
   return (
     <div className={styles.landingPage}>
       <div className={styles.divImg}>
-        <img className={styles.imgLanding} src= {image} alt="image"/>
+        <img className={styles.imgLanding} src= {image} alt="image videogame"/>
       </div>
       <div className={styles.divMsg}>
         <h1>Hola y bienvenid@!</h1>

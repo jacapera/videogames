@@ -5,6 +5,7 @@ import {
   GET_PLATFORMS,
   GET_VIDEOGAMES,
   GET_VIDEOGAME_NAME,
+  POST_VIDEOGAME,
   RESET_ERROR
 } from "./action-type";
 import axios from "axios";
@@ -99,6 +100,23 @@ export const getPlatforms = () => {
       })
     }
   };
+};
+
+export const postVideoGame = (game) => {
+  return async (dispatch) => {
+    try {
+      const {data} = await axios.post(`${URL}/videogames`, game);
+      return dispatch({
+        type: POST_VIDEOGAME,
+        payload: data
+      });
+    } catch (error) {
+      return dispatch({
+        type: ERROR,
+        payload: error.message,
+      });
+    }
+  }
 };
 
 export const resetError = () => {

@@ -5,15 +5,17 @@ import { getGenres, getVideoGames } from "../../redux/action";
 import Card from "../Card/Card";
 
 const Cards = (props) => {
-  
+// Estado y actions Goblales
+// ------------------------------------------------------------------------
   const dispatch = useDispatch();
-  const { allVideoGames, allGenres } = useSelector(state => state);
+  const { allVideoGames } = useSelector(state => state);
 
+// Funciones del ciclo de vida del componente
+// ------------------------------------------------------------------------
   useEffect(() => {
     dispatch(getVideoGames());
     dispatch(getGenres());
   }, [])
-  
 
   return(
     <div className={style.cards}>

@@ -1,6 +1,6 @@
 require('dotenv').config();
 const axios = require('axios');
-const { Videogame } = require('../../db');
+const { Videogame, Genre } = require('../../db');
 const { API_KEY } = process.env;
 
 // Se trae un game por id de la api
@@ -9,7 +9,7 @@ const getVideoGameById = async (idVideogame) => {
   // Función para buscar videogame en la BD
   const findGameBD = async (idVideogame) => {
     return await Videogame.findOne({
-      where: { id: idVideogame}
+      where: { id: idVideogame}, include:[Genre]
     })
   };
 

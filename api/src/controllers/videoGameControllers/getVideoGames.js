@@ -1,6 +1,6 @@
 require('dotenv').config();
 const axios = require('axios');
-//const { Videogame } = require('../../db');
+const { Videogame, Genre } = require('../../db');
 const { API_KEY } = process.env;
 
 const URL = `https://api.rawg.io/api/games?key=${API_KEY}`;
@@ -52,6 +52,9 @@ const getVideoGames = async () => {
     });
     videoGames = [...videoGames, ...pageGames];
   };
+  const videoGamesBD = await Videogame.findAll({include:[Genre]});
+  //if(videoGamesBD) videoGames = [...videoGames, ...videoGamesBD];
+  videoGames = [...videoGames, ...videoGamesBD];
   console.log(videoGames.length);
   return videoGames;
 };

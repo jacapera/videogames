@@ -2,7 +2,7 @@ import React from 'react';
 import style from './NavBar.module.css'
 import { useDispatch } from 'react-redux';
 import { getVideoGames } from '../../redux/action';
-import { Link, useNavigate, useSubmitImpl } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const NavBar = (props) => {
 

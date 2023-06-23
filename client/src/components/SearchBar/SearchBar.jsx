@@ -15,7 +15,7 @@ const SearchBar = (props) => {
 // Estados y actions globales
 // ----------------------------------------------------
   const dispatch = useDispatch();
-  const { error, allGenres, allVideoGames } = useSelector(state => state);
+  const { error, allGenres } = useSelector(state => state);
 
 // Funciones locales
 // ----------------------------------------------------

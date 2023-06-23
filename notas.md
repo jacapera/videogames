@@ -118,7 +118,7 @@ const showGame = await Videogame.findOne({
 const showGame = await Videogame.findOne({
   where: { name: videojuego.name },
   include: [
-    { model: Genre, as: 'Genres' }, // Especificamos el nombre del atributo en el modelo Videogame como 'Genres'
+    { model: Genre, as: "Genres" }, // Especificamos el nombre del atributo en el modelo Videogame como 'Genres'
   ],
 });
 ```
@@ -139,3 +139,39 @@ const showGame = await Videogame.findOne({
 El alias es opcional
 
 <br/>
+
+# **Expresiones regulares**
+
+## **Validación de nombre**
+```bash
+/^[a-zA-Z0-9\s]+$/i
+```
+
+- **`^`** indica el inicio del texto.
+- **`[a-zA-Z0-9\s]`** especifica un conjunto de caracteres permitidos:
+- **`a-z y A-Z`** incluyen todas las letras minúsculas y mayúsculas.
+- **`0-9`** incluye todos los dígitos numéricos.
+- **`\s`** representa un espacio en blanco.
+- **`+`** indica que el conjunto de caracteres permitidos puede aparecer una o más veces, lo que significa que el nombre debe contener al menos un carácter válido.
+- **`$`** indica el final del texto.
+- **`i`** al final de la expresión regular significa que la búsqueda debe ser insensible a mayúsculas y minúsculas, lo que permite que coincida con cualquier combinación de letras.
+### En resumen, esta expresión regular permite letras (mayúsculas y minúsculas), números y espacios en blanco en el nombre del videojuego. Si el nombre contiene algún carácter especial o no está dentro de estos caracteres permitidos, la expresión regular no hará coincidir el texto y se considerará inválido.
+
+### Recuerda que esta expresión regular no permite acentos ni caracteres especiales. Si deseas permitir acentos u otros caracteres especiales en el nombre, tendrías que modificar la expresión regular para incluirlos.
+
+<br />
+
+## **Validación de una URL para insertar una imagen**
+```bash
+^(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)$
+```
+- **`^`** indica el inicio del texto.
+- **`(http(s?):)`** busca la presencia de "http://" o "https://".
+- **`[/|.|\w|\s|-]`** especifica los caracteres permitidos en la URL, que incluyen "/", ".", letras, dígitos, espacios en blanco y guiones.
+- **`*`** indica que el conjunto de caracteres permitidos puede aparecer cero o más veces, lo que permite tener una URL con múltiples segmentos.
+- **`\.`** coincide con el punto que separa el nombre de dominio de la extensión de la imagen.
+- **`(?:jpg|gif|png)`** especifica las extensiones de archivo permitidas: "jpg", "gif" y "png".
+- **`$`** indica el final del texto.
+### Esta expresión regular es adecuada para validar URLs que apunten a imágenes con extensiones "jpg", "gif" o "png". Sin embargo, ten en cuenta que esta expresión regular no garantiza que la dirección de la imagen exista o que la imagen esté disponible en el servidor especificado. Solo verifica el formato básico de la URL.
+
+### Recuerda que también puedes utilizar otros métodos, como la función fetch de JavaScript, para comprobar si la imagen está disponible en la dirección especificada.

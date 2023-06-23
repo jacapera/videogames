@@ -1,10 +1,11 @@
-const { GET_VIDEOGAMES, GET_VIDEOGAME_NAME, ERROR, RESET_ERROR, GET_GENRES, FILTER_GENRE, GET_PLATFORMS } = require("./action-type");
+const { GET_VIDEOGAMES, GET_VIDEOGAME_NAME, ERROR, RESET_ERROR, GET_GENRES, FILTER_GENRE, GET_PLATFORMS, POST_VIDEOGAME } = require("./action-type");
 
 const initialState = {
   allVideoGames : [],
   copyAllVideoGames: [],
   allGenres: [],
   allPlatforms:[],
+  gameCreated:{},
   error: "",
 };
 
@@ -42,6 +43,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         allPlatforms:payload,
+        error:"",
+      }
+    case POST_VIDEOGAME:
+      return {
+        ...state,
+        gameCreated: payload,
         error:"",
       }
     case ERROR:

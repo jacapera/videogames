@@ -1,13 +1,14 @@
 require ('dotenv').config();
 const axios = require('axios');
 const { API_KEY } = process.env;
-const { Videogame } = require('../../db');
+const { Videogame, Genre } = require('../../db');
 const { Op } = require('sequelize');
 
 const URL = `https://api.rawg.io/api/games?key=${API_KEY}`;
 
 // Se trae 15 games de la api, al igual que en la BD, pero se retorna de la api por ahora
 const getVideoGamesByName = async (name) => {
+  console.log('aqui', name)
   if(!name){
     const error = new Error('Debe ingresar un nombre para buscar el Videogame');
     error.statusCode = 400;
@@ -35,20 +36,10 @@ const getVideoGamesByName = async (name) => {
       name:{
         [Op.iLike]: `%${formattedName}%`
       }
-    }, limit: 15
+    }, limit: 15, include:[Genre]
   });
-
-  if(gamesByName.length){
-    //console.log(gamesByName.length);
-    return gamesByName;
-  } else if (dbResults.length){
-    //console.log(dbResults.length);
-    return dbResults;
-  } else {
-    const error = new Error(`No se encontro ningun juego que contenga la palabra ${name}`);
-    error.statusCode = 404;
-    throw error;
-  }
+  const result = [...gamesByName, ...dbResults];
+  return result;
 };
 
 module.exports = getVideoGamesByName;
