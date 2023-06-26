@@ -3,8 +3,6 @@ import style from './Home.module.css';
 import Cards from '../Cards/Cards';
 import SearchBar from '../SearchBar/SearchBar';
 
-
-
 const Home = (props) => {
 
   return (

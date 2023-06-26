@@ -1,4 +1,4 @@
-const { GET_VIDEOGAMES, GET_VIDEOGAME_NAME, ERROR, RESET_ERROR, GET_GENRES, FILTER_GENRE, GET_PLATFORMS, POST_VIDEOGAME } = require("./action-type");
+const { GET_VIDEOGAMES, GET_VIDEOGAME_NAME, ERROR, RESET_ERROR, GET_GENRES, FILTER_GENRE, GET_PLATFORMS, POST_VIDEOGAME, ORDER_CARD } = require("./action-type");
 
 const initialState = {
   allVideoGames : [],
@@ -11,6 +11,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   const { type, payload } = action;
+  console.log(payload)
   switch ( type ) {
     case GET_VIDEOGAMES:
       return {
@@ -38,6 +39,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         allVideoGames: allVideoGamesFiltered,
+      }
+    case ORDER_CARD:
+      const allCardsCopy = [...state.allVideoGames];
+      return {
+        ...state,
+        allVideoGames:
+          payload === "A-Z" ? allCardsCopy.sort((a, b) =>{return a.name.toUpperCase() < b.name.toUpperCase() ? -1 : a.name.toUpperCase() > b.name.toUpperCase() ? 1 : 0}):
+          payload === "Z-A" ? allCardsCopy.sort((a, b) => b.name.trim().toLowerCase().localeCompare(a.name.trim().toLowerCase())):
+          payload === "ratingMin" ? allCardsCopy.sort((a, b) => a.rating - b.rating) :
+          allCardsCopy.sort((a, b) => b.rating - a.rating),
       }
     case GET_PLATFORMS:
       return {

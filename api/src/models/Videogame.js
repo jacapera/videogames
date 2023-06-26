@@ -31,7 +31,7 @@ module.exports = (sequelize) => {
       type: DataTypes.DATEONLY,
     },
     rating:{
-      type: DataTypes.FLOAT,
+      type: DataTypes.STRING,
     },
   }, {timestamps: false});
 };

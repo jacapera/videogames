@@ -5,6 +5,7 @@ import {
   GET_PLATFORMS,
   GET_VIDEOGAMES,
   GET_VIDEOGAME_NAME,
+  ORDER_CARD,
   POST_VIDEOGAME,
   RESET_ERROR
 } from "./action-type";
@@ -126,11 +127,17 @@ export const resetError = () => {
   }
 };
 
-
 export const filterGenre = (genre) => {
   return {
     type: FILTER_GENRE,
     payload: genre,
   }
 }
+
+export const orderVideoGameByName = (orderByName) => {
+  return {
+    type: ORDER_CARD,
+    payload: orderByName
+  }
+};
 

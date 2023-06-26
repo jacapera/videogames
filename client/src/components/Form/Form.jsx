@@ -18,14 +18,13 @@ const Form = (props) => {
     rating:0,
     image:"",
     released:"",
-
   })
   const [message, setMessage] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [errors, setErrors] = useState({});
   const [formValid, setFormValid] = useState(false);
+  const [formErrors, setFormErrors] = useState({});
+  const [touchedFields, setTouchedFields] = useState({});
   const navigate = useNavigate();
-
 
   // Estados y acciones globales
   // ----------------------------------------------------------------
@@ -34,7 +33,7 @@ const Form = (props) => {
 
   // Funciones locales
   // ----------------------------------------------------------------
-  const handleChangeForm = (event) => {
+  const handleChangeForm = async (event) => {
     const { value, name } = event.target;
     // Validación para Rating
     if(value < 0 || value > 5 ){
@@ -58,7 +57,6 @@ const Form = (props) => {
         return;
       }
       setCreateGameForm({...createGameForm, genres:[...createGameForm.genres, value]});
-      setErrors(validation({...createGameForm, genres:[...createGameForm.genres, value]}));
       return;
     }
 
@@ -76,43 +74,41 @@ const Form = (props) => {
         return;
       }
       setCreateGameForm({...createGameForm, platforms:[...createGameForm.platforms, value]});
-      setErrors(validation({...createGameForm, platforms:[...createGameForm.platforms, value]}));
       return;
     }
-    // Resto del Formulario
-    setCreateGameForm({
-      ...createGameForm,
+
+    setCreateGameForm(prevValues => ({
+      ...prevValues,
       [name]: value
-    })
-    setErrors(validation({
-      ...createGameForm,
-      [name]: value
-    }))
+    }));
   };
-  
-  const removeGenre = (event) => {
+
+  const handleRemove = (event) => {
+    const{name, value} = event.target;
     event.preventDefault();
-    const { value } = event.target;
-    const aux = createGameForm.genres.filter(genre => genre !== value);
-    if(!aux.length) setErrors(validation({...createGameForm, genres:[]}));
-    setCreateGameForm({...createGameForm, genres: aux});
+    setCreateGameForm(prevValues => {
+      const updatedValues = {...prevValues};
+      if(updatedValues[name]){
+        updatedValues[name] = updatedValues[name].filter(item => item !== value);
+      }
+      return updatedValues;
+    });
   };
-  
-  const removePlatform = (event) => {
-    event.preventDefault();
-    const { value } = event.target;
-    const aux = createGameForm.platforms.filter(platform => platform !== value);
-    if(!aux.length) setErrors(validation({...createGameForm, platforms:[]}));
-    setCreateGameForm({...createGameForm, platforms: aux});
+
+  const handleBlur = (event) => {
+    const { name } = event.target;
+    setTouchedFields(prevTouchedFields => ({
+      ...prevTouchedFields,
+      [name]: true,
+    }));
   };
   
   const handleSubmit = (event) => {
     event.preventDefault();
-    let auxErrors = [];
-    auxErrors = Object.entries(errors);
-    if(auxErrors.length === 0){
+    let auxErrors = Object.values(formErrors).every(value => value === "");
+    if(auxErrors) {
       dispatch(postVideoGame(createGameForm));
-      setMessage('Video Juego Creato con Exito!');
+      setMessage('Video Juego Creado con Exito!');
       setCreateGameForm({
         name:"",
         description:"",
@@ -122,7 +118,7 @@ const Form = (props) => {
         image:"",
         released:"",
       })
-      setErrors({});
+      setFormErrors({});
       openModal();
     }
   };
@@ -130,9 +126,11 @@ const Form = (props) => {
   const openModal = () => { setIsModalOpen(true) };
   const closeModal = () => {
     setIsModalOpen(false)
-    if(message === 'Video Juego Creato con Exito!')
+    if(message === 'Video Juego Creado con Exito!'){
+      setMessage("");
+      navigate('/home');
+    }
     setMessage("");
-    navigate('/home');
   };
 
   // Funciones Ciclo de vida del Componente
@@ -141,18 +139,27 @@ const Form = (props) => {
     dispatch(getGenres());
     dispatch(getPlatforms());
   }, []);
-  
+
   useEffect(() => {
-    console.log(createGameForm);
-    console.log(errors);
-    const {name, description, image, released, rating, genres, platforms} = createGameForm;
-    if(!name || !description || !image || !released || !genres || !platforms || !rating){
-      setFormValid(false);
-      return;
+    console.log("Form: " , createGameForm);
+    const errors = validation(createGameForm);
+    console.log("TOUCH: ", touchedFields)
+
+    if(Object.keys(touchedFields).length  > 0){
+      setFormErrors({
+        "name": errors.name || "",
+        "description": errors.description || "",
+        "image": errors.image || "",
+        "rating": errors.rating || "",
+        "released": errors.released || "",
+        "genres": errors.genres || "",
+        "platforms": errors.platforms || "",
+      });
     }
+    console.log("FORMERROR: " , formErrors);
     if(Object.keys(errors).length === 0) setFormValid(true);
     else setFormValid(false);
-  }, [createGameForm, errors]);
+  }, [createGameForm, touchedFields]);
 
   return(
     <div className={style.form}>
@@ -166,31 +173,31 @@ const Form = (props) => {
             {/* NOMBRE DEL VIDEOGAME */}
             <div className={style.divFormAtribute}>
               <label >Name: </label>
-              <input className={style.input} type="text" placeholder='ingresa un nombre' name='name' value={createGameForm.name} onChange={handleChangeForm} />
-              <p className={style.pError}>{errors.name ? errors.name : null}</p>
+              <input className={style.input} type="text" placeholder='ingresa un nombre' name='name' value={createGameForm.name} onChange={handleChangeForm} onBlur={handleBlur} autoComplete='false'/>
+              { touchedFields.name && formErrors.name && <p className={style.pError}>{formErrors.name}</p>}
             </div>
             {/* DESCRIPCION DEL VIDEOGAME */}
             <div className={style.divFormAtribute}>
               <label >Description: </label>
-              <textarea className={style.texarea} name="description" cols="30" rows="5" placeholder='ingresa una descripción' value={createGameForm.description} onChange={handleChangeForm}></textarea>
-              <p className={style.pError}>{errors.description ? errors.description : null}</p>
+              <textarea className={style.texarea} name="description" cols="30" rows="5" placeholder='ingresa una descripción' value={createGameForm.description} onChange={handleChangeForm} onBlur={handleBlur}></textarea>
+              { touchedFields.description && formErrors.description && <p className={style.pError}>{formErrors.description}</p>}
             </div>
             {/* GENEROS A SELECCIONAR QUE SE RELACIONARAN DESPUES EN LA BASE DE DATOS */}
             <div className={style.divFormAtribute}>
               <label >Genres: </label>
-              <select className={style.selectGender} value="default" name="genres" onChange={handleChangeForm}>
+              <select className={style.selectGender} value="default" name="genres" onChange={handleChangeForm} onBlur={handleBlur}>
               <option value="default" hidden>escoja generos aqui</option>
               {
                 allGenres.map(genre => (<option key={genre.idGenreRawg} value={genre.name}>{genre.name}</option>))
               }
             </select>
-            <p className={style.pError}>{errors.genres ? errors.genres : null}</p>
+            { touchedFields.genres && formErrors.genres && <p className={style.pError}>{formErrors.genres}</p>}
             </div>
             <div className={style.divFormShowGenre}>
               {
                 createGameForm.genres?.map((genreTemp, index) => (
                 <div key={index} className={style.divFormShowGenreSelected}>
-                  <button className={style.buttonCloseGenre} value={genreTemp} onClick={removeGenre}>x</button>
+                  <button className={style.buttonCloseGenre} name='genres' value={genreTemp} onClick={handleRemove}>x</button>
                   <p>{genreTemp}</p>
                 </div>))
               }
@@ -198,14 +205,14 @@ const Form = (props) => {
             {/* RATING VIDEOGAME */}
             <div className={style.divFormAtribute}>
               <label >Rating: </label>
-              <input className={style.input} type="number" name='rating' value={createGameForm.rating} onChange={handleChangeForm} />
-              <p className={style.pError}>{errors.rating ? errors.rating : null}</p>
+              <input className={style.input} type="number" name='rating' value={createGameForm.rating} onChange={handleChangeForm} onBlur={handleBlur}/>
+              { touchedFields.rating && formErrors.rating && <p className={style.pError}>{formErrors.rating}</p>}
             </div>
             {/* RELEASED */}
             <div className={style.divFormAtribute}>
               <label >Released: </label>
-              <input className={style.input} type="Date" name='released' value={createGameForm.released} onChange={handleChangeForm} />
-              <p className={style.pError}>{errors.released ? errors.released : null}</p>
+              <input className={style.input} type="Date" name='released' value={createGameForm.released} onChange={handleChangeForm} onBlur={handleBlur} />
+              { touchedFields.released && formErrors.released && <p className={style.pError}>{formErrors.released}</p>}
             </div>
           </div>
           {/* DERECHA */}
@@ -214,8 +221,8 @@ const Form = (props) => {
               {/* IMAGE */}
               <div className={style.divFormAtribute}>
                 <label >Image: </label>
-                <input className={style.input} type="text" placeholder='ingresa URL de la imagen' name='image' value={createGameForm.image} onChange={handleChangeForm} />
-                <p className={style.pError}>{errors.image ? errors.image : null}</p>
+                <input className={style.input} type="text" placeholder='ingresa URL de la imagen' name='image' value={createGameForm.image} onChange={handleChangeForm} onBlur={handleBlur} />
+                { touchedFields.image && formErrors.image && <p className={style.pError}>{formErrors.image}</p>}
                 <div className={style.divImg}>
                   <img className={style.imgCreateForm} src={createGameForm.image} alt="" />
                 </div>
@@ -224,19 +231,19 @@ const Form = (props) => {
             {/* PLATAFORMAS A SELECCIONAR */}
             <div className={style.divFormAtribute}>
               <label>Platforms: </label>
-              <select className={style.selectGender} value="default" name="platforms" onChange={handleChangeForm}>
+              <select className={style.selectGender} value="default" name="platforms" onChange={handleChangeForm} onBlur={handleBlur}>
               <option value="default" hidden>escoja plataformas aqui</option>
               {
-                allPlatforms.map(platform => (<option key={platform.id} value={platform.name}>{platform.name}</option>))
+                allPlatforms.map(platform => (<option key={platform.id} name='platforms' value={platform.name}>{platform.name}</option>))
               }
             </select>
-            <p className={style.pError}>{errors.platforms ? errors.platforms : null}</p>
+            { touchedFields.platforms && formErrors.platforms && <p className={style.pError}>{formErrors.platforms}</p>}
             </div>
             <div className={style.divFormShowGenre}>
               {
                 createGameForm.platforms?.map((platformTemp, index) => (
                 <div key={index} className={style.divFormShowGenreSelected}>
-                  <button className={style.buttonCloseGenre} value={platformTemp} onClick={removePlatform}>x</button>
+                  <button className={style.buttonCloseGenre} name="platforms" value={platformTemp} onClick={handleRemove}>x</button>
                   <p>{platformTemp}</p>
                 </div>))
               }

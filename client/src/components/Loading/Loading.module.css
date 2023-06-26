@@ -1,0 +1,7 @@
+/*         CONTENEDOR PRINCIPAL          */
+/*---------------------------------------*/
+.loagind{
+  display: flex;
+  justify-content: center;
+  background-color: purple;
+}

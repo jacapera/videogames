@@ -3,9 +3,8 @@ const axios = require('axios');
 const { Videogame, Genre } = require('../../db');
 const { API_KEY } = process.env;
 
-// Se trae un game por id de la api
-// Por ahora devolvemos integrando id de la api y id de la BD
 const getVideoGameById = async (idVideogame) => {
+
   // Función para buscar videogame en la BD
   const findGameBD = async (idVideogame) => {
     return await Videogame.findOne({

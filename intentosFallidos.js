@@ -55,3 +55,19 @@ const handleChangePlatforms = (event) => {
   });
 };
 
+
+const removeGenre = (event) => {
+  event.preventDefault();
+  const { value } = event.target;
+  const aux = createGameForm.genres.filter(genre => genre !== value);
+  if(!aux.length) setGenresError(validation({...createGameForm, genres:[]}).genres);
+  setCreateGameForm({...createGameForm, genres: aux});
+};
+
+const removePlatform = (event) => {
+  event.preventDefault();
+  const { value } = event.target;
+  const aux = createGameForm.platforms.filter(platform => platform !== value);
+  if(!aux.length) setPlatformsError(validation({...createGameForm, platforms:[]}).platforms);
+  setCreateGameForm({...createGameForm, platforms: aux});
+};

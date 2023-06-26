@@ -29,6 +29,9 @@
   border-start-start-radius: 12px;
   background-color: rgb(210, 186, 219);
 }
+.link{
+  text-decoration: none;
+}
 
 /*                        IMAGEN DEL JUEGO                                */
 /*------------------------------------------------------------------------*/
@@ -56,6 +59,25 @@
   font-size: 0.9rem;
 }
 
+/*                           PLATAFORMAS                                  */
+/*------------------------------------------------------------------------*/
+.divPlatform{
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: auto;
+  align-items: center;
+  /* grid-template-columns: repeat(2, 1fr); */
+  /* place-items: center; */
+  gap: 5px;
+  border-left: 1px solid darkblue;
+  border-right: 1px solid darkblue;
+  border-bottom: 1px solid darkblue;
+  padding: 5px;
+  border-end-end-radius: 12px;
+  border-end-start-radius: 12px;
+  background-color: rgb(210, 186, 219);
+}
 
 /*                        GENEROS DEL JUEGO                                */
 /*------------------------------------------------------------------------*/
@@ -67,13 +89,21 @@
   /* grid-template-columns: repeat(2, 1fr); */
   /* place-items: center; */
   gap: 5px;
-  border: 1px solid darkblue;
+  border-left: 1px solid darkblue;
+  border-right: 1px solid darkblue;
+  border-bottom: 1px solid darkblue;
   padding: 5px;
-  border-end-end-radius: 12px;
-  border-end-start-radius: 12px;
   background-color: rgb(210, 186, 219);
 }
-.divGenres p{
+.divGenresH4{
+  padding: 4px;
+  width: 100%;
+  border-left: 1px solid darkblue;
+  border-right: 1px solid darkblue;
+  border-bottom: 1px solid rgb(210, 186, 219);
+  background-color: rgb(210, 186, 219);
+}
+.p{
   width: auto;
   height: 30px;
   border: 1px solid blue;

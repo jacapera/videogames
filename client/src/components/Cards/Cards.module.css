@@ -1,8 +1,51 @@
+/*                 PRINCIPAL                 */
+/*-------------------------------------------*/
 .cards{
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  width: 100%;
   gap: 15px;
   justify-content: space-evenly;
   padding: 15px;
   border: 1px solid black;
+}
+/*                 CARDS                     */
+/*-------------------------------------------*/
+.divCards{
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 15px;
+  justify-content: space-evenly;
+  padding: 15px;
+  border: 1px solid black;
+}
+/*           CONTENEDOR DE BOTONES            */
+/*--------------------------------------------*/
+.divButton{
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+/*                BOTONES                     */
+/*--------------------------------------------*/
+.button {
+  width: auto;
+  display: inline-block;
+  padding: 8px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  color: #ebe1e1;
+  background-color: #340157;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 0px;
+}
+.button:hover {
+  background-color: #ffbb00;
+  transform: scale(1.1)
 }

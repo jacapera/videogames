@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import style from './SearchBar.module.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { filterGenre, getVideoGameByName, resetError } from '../../redux/action';
+import { filterGenre, getVideoGameByName, resetError, orderVideoGameByName } from '../../redux/action';
 
 const SearchBar = (props) => {
 
@@ -10,6 +10,7 @@ const SearchBar = (props) => {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [genre, setGenre] = useState("")
+  const [orderByName, setOrderByName] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
 // Estados y actions globales
@@ -27,6 +28,18 @@ const SearchBar = (props) => {
   const handleFilterGender = (event) => {
     const { value } = event.target;
     setGenre(value);
+  };
+
+  const handleOrderByName = (event) => {
+    const { value } = event.target;
+    //console.log(value)
+    setOrderByName(value);
+  };
+
+  const orderGameByName = (orderByName) => {
+    console.log(orderByName)
+    dispatch(orderVideoGameByName(orderByName));
+    setOrderByName("");
   };
 
   const getGameByName = (name) => {
@@ -84,7 +97,23 @@ const SearchBar = (props) => {
               allGenres.map(genre => <option key={genre.idGenreRawg}>{genre.name}</option>)
             }
           </select>
-          <button onClick={()=>filterBYGenre(genre)} className={style.button}>Genero</button>
+          <button onClick={()=>filterBYGenre(genre)} className={style.button}>Search</button>
+        </div>
+      </div>
+      {/* ORDENAR */}
+      <div className={style.divSearchGenre}>
+          <div className={style.divSearchGenreTitulo}>
+            <h2>Ordenar</h2>
+          </div>
+        <div className={style.divSearchGenreSelect}>
+          <select className={style.selectGender} defaultValue={"default"} onChange={handleOrderByName}>
+            <option value="default" hidden>escoja aqui</option>
+            <option value={"A-Z"} >A-Z</option>
+            <option value={"Z-A"} >Z-A</option>
+            <option value={"ratingMin"} >Rating-Min</option>
+            <option value={"ratingMax"} >Rating-Max</option>
+          </select>
+          <button onClick={()=>orderGameByName(orderByName)} className={style.button}>Order</button>
         </div>
       </div>
       {/* Mostrar mensaje en Modal */}

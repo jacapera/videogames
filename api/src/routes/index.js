@@ -3,13 +3,10 @@ const { Router } = require('express');
 
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
-
 const router = Router();
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
-
-
 router.get('/videogames/name', async (req, res) => {
   try {
     const { name } = req.query;
@@ -65,14 +62,5 @@ router.post('/videogames', async (req, res) => {
       : res.status(500).json({ message: error.message })
   }
 });
-
-
-
-
-
-
-
-
-
 
 module.exports = router;

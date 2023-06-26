@@ -36,7 +36,7 @@ const getVideoGames = async () => {
         //   onConflict: { doNothing: true},
         // });
   let videoGames = [];
-  for(let i = 1; i < 2; i++){
+  for(let i = 1; i < 6; i++){
     const apiData = await axios.get(`${URL}&page=${i}`);
     let pageGames = apiData.data.results.map(game => {
       return {

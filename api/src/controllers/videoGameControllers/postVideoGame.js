@@ -43,7 +43,7 @@ const postVideoGame = async (game) => {
   const newGameObj = {
     name,
     description,
-    platforms,
+    platforms:platforms.map(item => {return{platform:{name: item}}}),
     image,
     released:formatDate(released),
     rating,

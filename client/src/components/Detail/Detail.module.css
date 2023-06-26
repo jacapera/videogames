@@ -1,0 +1,111 @@
+/* CONTENEDOR PRINCIPAL */
+/*-------------------------------------*/
+.detail{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  /* height: 100; */
+  padding: 15px;
+  background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url('../../assets/4.jpg');
+  background-size: cover;
+}
+
+/*                  NAME               */
+/*-------------------------------------*/
+.detailName{
+  color: white;
+}
+.hrName{
+  color: white;
+  width: 90%;
+}
+
+/*                 IMAGE               */
+/*-------------------------------------*/
+.divDetailImg{
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  padding: 15px;
+  justify-content: center;
+  align-items: center;
+}
+.detailImg{
+  width: 300px;
+  height: 300px;
+}
+.hrImg{
+  color: white;
+  width: 90%;
+}
+/*             DESCRIPCION             */
+/*-------------------------------------*/
+.divDetail{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.h2Detail{
+  color: white;
+}
+.pDetailDescription{
+  display: flex;
+  width: 100%;
+  padding: 15px;
+  color: white;
+  text-align: center;
+  font-size: 0.8rem;
+
+}
+/*               RELEASED                */
+/*---------------------------------------*/
+.divReleased{
+  display: flex;
+  width: 40%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.pDetailReleased{
+  display: flex;
+  width: 100%;
+  padding: 15px;
+  color: white;
+  text-align: center;
+  font-size: 1.2rem;
+  justify-content: center;
+  align-items: center;
+}
+/*               PLATFORMS                */
+/*---------------------------------------*/
+.divDetailPlatforms{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.hrPlatforms{
+  color: white;
+  width: 50%;
+}
+.divPlatforms{
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  /* flex-direction: row; */
+  justify-content: center;
+  align-items: center;
+}
+.pDetailPlatforms{
+  display: flex;
+  width: auto;
+  padding: 15px;
+  color: white;
+  font-size: 1rem;
+  justify-content: center;
+  align-items: center;
+}
