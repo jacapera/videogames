@@ -38,6 +38,11 @@ const getVideoGamesByName = async (name) => {
       }
     }, limit: 15, include:[Genre]
   });
+  if(!gamesByName.length && !dbResults.length) {
+    const error = new Error('No se encontro este VideoGame');
+    error.statusCode = 404;
+    throw error
+  }
   const result = [...gamesByName, ...dbResults];
   return result;
 };

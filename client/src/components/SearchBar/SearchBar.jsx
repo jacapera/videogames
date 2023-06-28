@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import style from './SearchBar.module.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { filterGenre, getVideoGameByName, resetError, orderVideoGameByName } from '../../redux/action';
+import { filterGenre, getVideoGameByName, resetError, orderVideoGameByName, isLoadingChange, filterByName, orderVideoGames } from '../../redux/action';
 
 const SearchBar = (props) => {
 
@@ -10,7 +10,7 @@ const SearchBar = (props) => {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [genre, setGenre] = useState("")
-  const [orderByName, setOrderByName] = useState("");
+  const [order, setOrder] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
 // Estados y actions globales
@@ -30,25 +30,29 @@ const SearchBar = (props) => {
     setGenre(value);
   };
 
-  const handleOrderByName = (event) => {
+  const handleOrderly = (event) => {
     const { value } = event.target;
     //console.log(value)
-    setOrderByName(value);
+    setOrder(value);
   };
 
-  const orderGameByName = (orderByName) => {
-    console.log(orderByName)
-    dispatch(orderVideoGameByName(orderByName));
-    setOrderByName("");
+  const orderVideoGame = (order) => {
+    console.log(order)
+    dispatch(orderVideoGames(order));
+    setOrder("");
   };
 
   const getGameByName = (name) => {
-    dispatch(getVideoGameByName(name));
+    //dispatch(isLoadingChange(true));
+    //dispatch(getVideoGameByName(name));
+     dispatch(filterByName(name))
     setName("");
   };
-
+  
   const filterBYGenre = (genre) => {
+    dispatch(isLoadingChange(true));
     dispatch(filterGenre(genre))
+    dispatch(isLoadingChange(false));
   };
 
   const openModal = () => { setIsModalOpen(true) };
@@ -93,6 +97,7 @@ const SearchBar = (props) => {
         <div className={style.divSearchGenreSelect}>
           <select className={style.selectGender}  name="genre" value={genre} onChange={handleFilterGender}>
             <option value="default" hidden>escoja genero aqui</option>
+            <option value="All" >All</option>
             {
               allGenres.map(genre => <option key={genre.idGenreRawg}>{genre.name}</option>)
             }
@@ -106,14 +111,14 @@ const SearchBar = (props) => {
             <h2>Ordenar</h2>
           </div>
         <div className={style.divSearchGenreSelect}>
-          <select className={style.selectGender} defaultValue={"default"} onChange={handleOrderByName}>
+          <select className={style.selectGender} defaultValue={"default"} onChange={handleOrderly}>
             <option value="default" hidden>escoja aqui</option>
             <option value={"A-Z"} >A-Z</option>
             <option value={"Z-A"} >Z-A</option>
             <option value={"ratingMin"} >Rating-Min</option>
             <option value={"ratingMax"} >Rating-Max</option>
           </select>
-          <button onClick={()=>orderGameByName(orderByName)} className={style.button}>Order</button>
+          <button onClick={()=>orderVideoGame(order)} className={style.button}>Order</button>
         </div>
       </div>
       {/* Mostrar mensaje en Modal */}

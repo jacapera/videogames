@@ -1,10 +1,12 @@
 import {
   ERROR,
+  FILTER_BY_NAME,
   FILTER_GENRE,
   GET_GENRES,
   GET_PLATFORMS,
   GET_VIDEOGAMES,
   GET_VIDEOGAME_NAME,
+  ISLOADING,
   ORDER_CARD,
   POST_VIDEOGAME,
   RESET_ERROR
@@ -39,7 +41,7 @@ export const getVideoGameByName = (name) => {
       // const response = await fetch(`http://localhost:3005/videogames/name?name=${name}`);
       // const data = await response.json();
       const { data } = await axios.get(`${URL}/videogames/name?name=${name}`);
-      //console.log('aqui en action', data)
+      console.log('aqui en action', data)
       /*
       * Usando fetch no me entrega error y todo biene por la data lo cual no va entrar al catch
       * debo aplicar la siguente logica que esta comentada.
@@ -134,10 +136,24 @@ export const filterGenre = (genre) => {
   }
 }
 
-export const orderVideoGameByName = (orderByName) => {
+export const filterByName = (nameGame) => {
+  return {
+    type: FILTER_BY_NAME,
+    payload: nameGame,
+  }
+}
+
+export const orderVideoGames = (order) => {
   return {
     type: ORDER_CARD,
-    payload: orderByName
+    payload: order
   }
 };
+
+export const isLoadingChange = (boolean) => {
+  return {
+    type: ISLOADING,
+    payload: boolean
+  }
+}
 

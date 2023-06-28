@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import style from './Home.module.css';
 import Cards from '../Cards/Cards';
 import SearchBar from '../SearchBar/SearchBar';
+import { useDispatch } from 'react-redux';
+import { isLoadingChange } from '../../redux/action';
 
 const Home = (props) => {
 

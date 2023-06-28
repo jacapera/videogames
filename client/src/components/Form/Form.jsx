@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getGenres, getPlatforms, postVideoGame } from '../../redux/action';
 import validation from './validation';
 import { useNavigate } from 'react-router-dom';
+import imgForm from '../../assets/5.jpg'
 
 
 const Form = (props) => {
@@ -267,6 +268,9 @@ const Form = (props) => {
           )}
         </div>
       </div>
+      {/* <div className={style.divFinal}>
+      </div> */}
+    {/* <img src={imgForm} alt="" /> */}
     </div>
 )
 };

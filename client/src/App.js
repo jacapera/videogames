@@ -22,7 +22,6 @@ function App() {
         <Route path={'/search'} element={<SearchBar />} />
         <Route path='/createVideoGame' element={<Form />} />
         <Route path='/detail/:id' element={<Detail />} />
-        {/* <Route path='/detail/:id' element={<Detail />} /> */}
       </Routes>
     </div>
   );

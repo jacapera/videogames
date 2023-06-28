@@ -3,7 +3,9 @@
 .cards{
   display: flex;
   flex-direction: column;
+  background-image: url('../../assets/3.avif');
   width: 100%;
+  height: 100;
   gap: 15px;
   justify-content: space-evenly;
   padding: 15px;
@@ -25,7 +27,13 @@
 .divButton{
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 15px;
+}
+.divButton p{
+  color: white;
+  font-weight: bold;
+  font-size: 2rem;
 }
 /*                BOTONES                     */
 /*--------------------------------------------*/
@@ -33,7 +41,7 @@
   width: auto;
   display: inline-block;
   padding: 8px 20px;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: bold;
   text-align: center;
   text-decoration: none;
@@ -48,4 +56,28 @@
 .button:hover {
   background-color: #ffbb00;
   transform: scale(1.1)
+}
+.button:disabled {
+  background-color: #ccc;
+  color: black;
+  cursor: not-allowed;
+}
+
+.buttonPage{
+  display: flex;
+  width: 20px;
+  border-radius: 5px;
+  padding: 8px 10px;
+  justify-content: center;
+  align-items: center;
+
+}
+.currentPageButton{
+  color: #ebe1e1;
+  background-color: #340157;
+  cursor: pointer;
+}
+.currentPageButton:hover {
+  background-color: #ffbb00;
+  transform: scale(1.3)
 }

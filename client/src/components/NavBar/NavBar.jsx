@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './NavBar.module.css'
 import { useDispatch } from 'react-redux';
-import { getVideoGames } from '../../redux/action';
+import { getVideoGames, isLoadingChange } from '../../redux/action';
 import { useNavigate } from 'react-router-dom';
 
 const NavBar = (props) => {
@@ -18,6 +18,7 @@ const NavBar = (props) => {
   // ----------------------------------------------------
   const irHome = () => {
     navigate('/home');
+    dispatch(isLoadingChange(true));
     dispatch(getVideoGames());
   };
 
