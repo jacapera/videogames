@@ -7,7 +7,7 @@
   width: 100%;
   height: 100;
   gap: 15px;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   padding: 15px;
   border: 1px solid black;
 }
@@ -17,6 +17,7 @@
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  height: 100;
   gap: 15px;
   justify-content: space-evenly;
   padding: 15px;

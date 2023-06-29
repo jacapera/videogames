@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import style from './Form.module.css';
+import style from './Update.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGenres, getPlatforms, postVideoGame } from '../../redux/action';
-import validation from './validation';
-import { useNavigate } from 'react-router-dom';
+import { getGenres, getPlatforms, isLoadingChange } from '../../redux/action';
+import validation from '../Form/validation';
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
 
 
-const Form = (props) => {
+const Update = (props) => {
 
   // Estados locales
   // ----------------------------------------------------------------
+  const { id } = useParams();
   const [createGameForm, setCreateGameForm] = useState({
-    name:"",
+    name: "",
     description:"",
     genres:[],
     platforms:[],
@@ -102,13 +104,13 @@ const Form = (props) => {
       [name]: true,
     }));
   };
-  
-  const handleSubmit = (event) => {
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     let auxErrors = Object.values(formErrors).every(value => value === "");
     if(auxErrors) {
-      dispatch(postVideoGame(createGameForm));
-      setMessage('Video Juego Creado con Exito!');
+      await axios.put(`http://localhost:3005/videogames/${id}`, createGameForm);
+      setMessage('Video Juego Actualizado con Exito!');
       setCreateGameForm({
         name:"",
         description:"",
@@ -126,12 +128,15 @@ const Form = (props) => {
   const openModal = () => { setIsModalOpen(true) };
   const closeModal = () => {
     setIsModalOpen(false)
-    if(message === 'Video Juego Creado con Exito!'){
+    if(message === 'Video Juego Actualizado con Exito!'){
       setMessage("");
+      dispatch(isLoadingChange());
       navigate('/home');
     }
     setMessage("");
   };
+  //console.log(videoGame);
+  //console.log(createGameForm);
 
   // Funciones Ciclo de vida del Componente
   // ---------------------------------------------------
@@ -139,6 +144,19 @@ const Form = (props) => {
     dispatch(getGenres());
     dispatch(getPlatforms());
   }, []);
+
+  useEffect(async () => {
+    const {data} = await axios.get(`http://localhost:3005/videogames/${id}`);
+    setCreateGameForm({
+      name: data.name,
+      description: data.description,
+      genres:data.genres.map(item => item.name),
+      rating: data.rating,
+      released: data.released,
+      image: data.image,
+      platforms: data.platforms.map(item => item.platform.name )
+    })
+  }, [id]);
 
   useEffect(() => {
     console.log("Form: " , createGameForm);
@@ -165,7 +183,7 @@ const Form = (props) => {
     <div className={style.form}>
       <div className={style.divForm}>
         {/* TITULO */}
-        <h2>Create Videogame</h2>
+        <h2>Update Videogame</h2>
         <hr /> <br />
         <form onSubmit={handleSubmit} className={style.formCreateGame}>
           {/* IZQUIERDA */}
@@ -173,13 +191,13 @@ const Form = (props) => {
             {/* NOMBRE DEL VIDEOGAME */}
             <div className={style.divFormAtribute}>
               <label >Name: </label>
-              <input className={style.input} type="text" placeholder='ingresa un nombre' name='name' value={createGameForm.name} onChange={handleChangeForm} onBlur={handleBlur} autoComplete='false'/>
+              <input className={style.input} type="text" name='name' value={createGameForm.name} onChange={handleChangeForm} onBlur={handleBlur} />
               { touchedFields.name && formErrors.name && <p className={style.pError}>{formErrors.name}</p>}
             </div>
             {/* DESCRIPCION DEL VIDEOGAME */}
             <div className={style.divFormAtribute}>
               <label >Description: </label>
-              <textarea className={style.texarea} name="description" cols="30" rows="5" placeholder='ingresa una descripción' value={createGameForm.description} onChange={handleChangeForm} onBlur={handleBlur}></textarea>
+              <textarea className={style.texarea} name="description" cols="30" rows="5" value={createGameForm.description} onChange={handleChangeForm} onBlur={handleBlur}></textarea>
               { touchedFields.description && formErrors.description && <p className={style.pError}>{formErrors.description}</p>}
             </div>
             {/* GENEROS A SELECCIONAR QUE SE RELACIONARAN DESPUES EN LA BASE DE DATOS */}
@@ -250,7 +268,7 @@ const Form = (props) => {
             </div>
             {/* BOTON DE ENVIAR FORMULARIO */}
             <div>
-              <button className={style.button} disabled={!formValid} type='submit'>Crear</button>
+              <button className={style.button} disabled={!formValid} type='submit'>Actualizar</button>
             </div>
           </div>
         </form>
@@ -272,4 +290,4 @@ const Form = (props) => {
 };
 
 
-export default Form;
+export default Update;

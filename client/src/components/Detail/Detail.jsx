@@ -10,8 +10,8 @@ const Detail = (props) => {
   const [videoGame, setVideoGame] = useState({});
   const { id } = useParams();
 
-  let aux = videoGame.platforms?.map(item => item.platform?.name)
-  console.log(aux)
+  //let aux = videoGame.platforms?.map(item => item.platform?.name)
+  //console.log(aux)
 
   // Estados del ciclo de vida del componente
   // ---------------------------------------------------------------------

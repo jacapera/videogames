@@ -1,4 +1,16 @@
-const { GET_VIDEOGAMES, GET_VIDEOGAME_NAME, ERROR, RESET_ERROR, GET_GENRES, FILTER_GENRE, GET_PLATFORMS, POST_VIDEOGAME, ORDER_CARD, ISLOADING, FILTER_BY_NAME } = require("./action-type");
+const {
+  GET_VIDEOGAMES,
+  GET_VIDEOGAME_NAME,
+  ERROR,
+  RESET_ERROR,
+  GET_GENRES,
+  FILTER_GENRE,
+  GET_PLATFORMS,
+  POST_VIDEOGAME,
+  ORDER_CARD,
+  ISLOADING,
+  FILTER_BY_NAME
+} = require("./action-type");
 
 const initialState = {
   allVideoGames : [],
@@ -33,7 +45,7 @@ const reducer = (state = initialState, action) => {
       case FILTER_BY_NAME:
         const allGameCopy = [...state.allVideoGames].filter(game => game.name.toLowerCase().includes(payload.toLowerCase()));
         if(!allGameCopy.length){
-          return{...state, error: `El Video juego ${payload} no se encuentra en esta sección...intenta buscarlo en el listado general`}
+          return {...state, error: `El Video juego ${payload} no se encuentra en esta sección...intenta buscarlo en el listado general`}
         }
         return {
           ...state,
@@ -45,41 +57,46 @@ const reducer = (state = initialState, action) => {
         allGenres: payload,
         error:"",
       }
-
-
     case FILTER_GENRE:
+      // Declaro mi arreglo auxiliar
       let allVideoGamesFiltered = [];
       // Traigo a todos
       if(payload === "All") return {...state, allVideoGames: state.copyAllVideoGames}
-      // Valido si
+      // Valido si estoy con todos los video games para filtrarlos
       if(state.allVideoGames.length === state.copyAllVideoGames){
+        // Filtro de la copia donde tengo todos mis video games
         allVideoGamesFiltered = state.copyAllVideoGames.filter(game =>
           game.genres.some(genre => genre.name === payload)
         );
       }else {
+        // Si ya tengo filtro busco en lo que esta renderizado
         allVideoGamesFiltered = state.allVideoGames.filter(game => game.genres.some(genre => genre.name === payload))
         console.log('aqui', allVideoGamesFiltered);
       }
-
+      // Si no llego a encontra el video game seteo mi estado de error
       if(!allVideoGamesFiltered.length) return{
         ...state,
         error: `No se encontro el video juego con genero ${payload}`,
         allVideoGames:state.copyAllVideoGames,
       }
-
       return {
         ...state,
         allVideoGames: allVideoGamesFiltered,
       }
     case ORDER_CARD:
+      // Hago una copia de lo que esta renderizado
       const allCardsCopy = [...state.allVideoGames];
       return {
         ...state,
         allVideoGames:
-          payload === "A-Z" ? allCardsCopy.sort((a, b) =>{return a.name.toUpperCase() < b.name.toUpperCase() ? -1 : a.name.toUpperCase() > b.name.toUpperCase() ? 1 : 0}):
-          payload === "Z-A" ? allCardsCopy.sort((a, b) => b.name.trim().toLowerCase().localeCompare(a.name.trim().toLowerCase())):
-          payload === "ratingMin" ? allCardsCopy.sort((a, b) => a.rating - b.rating) :
-          allCardsCopy.sort((a, b) => b.rating - a.rating),
+          payload === "A-Z" ?
+            allCardsCopy.sort((a, b) =>{return a.name.toUpperCase() < b.name.toUpperCase() ? -1
+            : a.name.toUpperCase() > b.name.toUpperCase() ? 1 : 0})
+          :payload === "Z-A" ?
+            allCardsCopy.sort((a, b) => b.name.trim().toLowerCase().localeCompare(a.name.trim().toLowerCase()))
+          :payload === "ratingMin" ?
+            allCardsCopy.sort((a, b) => a.rating - b.rating)
+          :allCardsCopy.sort((a, b) => b.rating - a.rating),
       }
     case GET_PLATFORMS:
       return {

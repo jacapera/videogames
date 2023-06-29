@@ -63,4 +63,15 @@ router.post('/videogames', async (req, res) => {
   }
 });
 
+router.put('/videogames/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    return res.status(200).json(await controllers.updateVideoGame(id, req.body));
+  } catch (error) {
+    return error.statusCode
+      ? res.status(error.statusCode).json({message: error.message})
+      : res.status(500).json({ message: error.message })
+  }
+});
+
 module.exports = router;

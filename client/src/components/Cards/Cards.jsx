@@ -12,38 +12,25 @@ const Cards = (props) => {
 const [currentPage, setCurrentPage] = useState(0);
 const [buttonPrevDisable, setButtonPrevDisable] = useState(false);
 const [buttonNextDisable, setButtonNextDisable] = useState(false);
-const [page, setPage] = useState(0);
-
-const [pages, setPages] = useState([]);
 const [pageNumber, setPageNumber] = useState([]);
+const [pages, setPages] = useState([]);
 
 // Funciones locales
 // ------------------------------------------------------------------------
 const nextPage = () => {
-  if(allVideoGames.length > currentPage + 15){
-    setCurrentPage( currentPage + 15 );
-    //setButtonPrevDisable(false);
-    //if(allVideoGames.length <= currentPage + 30) setButtonNextDisable(true);
-  }
+  allVideoGames.length > currentPage + 15 && setCurrentPage( currentPage + 15 );
 };
+
 const prevPage = () => {
-  if(currentPage > 0){
-    setCurrentPage( currentPage - 15 );
-    //setButtonNextDisable(false);
-   // if (currentPage === 0) setButtonPrevDisable(true);
-  }
+  currentPage > 0 && setCurrentPage( currentPage - 15 );
 };
 
 const pageSelected = (event) => {
   const { value } = event.target;
   const pageNumberIndex = parseInt(value) - 1;
-  if(pageNumberIndex >= 0 && pageNumberIndex < pageNumber.length){
-    setCurrentPage(pageNumberIndex * 15);
-  }
-  if(allVideoGames.length <= currentPage + 30) setButtonNextDisable(true);
+  pageNumberIndex >= 0 && pageNumberIndex < pageNumber.length && setCurrentPage(pageNumberIndex * 15);
+  allVideoGames.length <= currentPage + 30 && setButtonNextDisable(true);
 }
-
-
 
 // Estado y actions Goblales
 // ------------------------------------------------------------------------
@@ -51,10 +38,9 @@ const pageSelected = (event) => {
   const { allVideoGames, isLoading } = useSelector(state => state);
 
   const filteredGames = allVideoGames.slice(currentPage, currentPage + 15);
-  console.log("currenpage", currentPage)
-  console.log("filtrados: ", filteredGames)
-  console.log("todos: ", allVideoGames)
-
+  // console.log("currenpage", currentPage)
+  // console.log("filtrados: ", filteredGames)
+  // console.log("todos: ", allVideoGames)
 
   // Funciones del ciclo de vida del componente
 // ------------------------------------------------------------------------
@@ -91,12 +77,12 @@ const pageSelected = (event) => {
   }, []);
 
   useEffect(() => {
-    if(currentPage === 0) setButtonPrevDisable(true)
-    else if(currentPage >= 15) setButtonPrevDisable(false);
-    if (((currentPage/15) + 1) === pageNumber.length) setButtonNextDisable(true)
-    else if(((currentPage/15) + 1) < pageNumber.length) setButtonNextDisable(false);
-    console.log(((currentPage/15) + 1), pageNumber.length);
-  }, [currentPage]);
+    currentPage === 0 ? setButtonPrevDisable(true)
+    : currentPage >= 15 && setButtonPrevDisable(false);
+    ((currentPage/15) + 1) === pageNumber.length ? setButtonNextDisable(true)
+    : ((currentPage/15) + 1) < pageNumber.length && setButtonNextDisable(false);
+    //console.log(((currentPage/15) + 1), pageNumber.length);
+  }, [currentPage, filteredGames]);
 
   return(
     <div className={style.cards}>
@@ -122,7 +108,7 @@ const pageSelected = (event) => {
             {
               pageNumber?.map((num, index) => (
                 <button  key={index} value={num} onClick={pageSelected}
-                className={`${style.buttonPage} ${currentPage === index * 15 ? style.currentPageButton:''}`}
+                className={`${style.buttonPage} ${currentPage === index * 15 && style.currentPageButton}`}
                 >{num}</button>
               ))
             }

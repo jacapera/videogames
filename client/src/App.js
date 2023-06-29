@@ -8,6 +8,7 @@ import Cards from './components/Cards/Cards';
 import Form from './components/Form/Form';
 import SearchBar from './components/SearchBar/SearchBar';
 import Detail from './components/Detail/Detail';
+import Update from './components/Update/Update.jsx';
 function App() {
 
   const location = useLocation();
@@ -22,6 +23,7 @@ function App() {
         <Route path={'/search'} element={<SearchBar />} />
         <Route path='/createVideoGame' element={<Form />} />
         <Route path='/detail/:id' element={<Detail />} />
+        <Route path='/update/:id' element={<Update />} />
       </Routes>
     </div>
   );

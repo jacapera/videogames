@@ -1,9 +1,11 @@
 import React from 'react';
 import style from './Card.module.css';
 import { Link } from 'react-router-dom';
+import icono from '../../assets/editar.png'
 
 const Card = (props) => {
   //props.platforms.map(item => console.log(item.platform?.name))
+  //console.log(props.id)
 
   return(
     <div className={style.card}>
@@ -11,9 +13,12 @@ const Card = (props) => {
         <Link className={style.link} to={`/detail/${props.id}`}>
           <h3>{props.name}</h3>
         </Link>
+        <Link className={style.link} to={`/update/${props.id}`} >
+          {typeof(props.id) === "string" && <img className={style.imgEditar} src={icono} />}
+        </Link>
       </div>
-      <div className={style.divImg}>
-        <img className={style.imgCard} src={props.image} alt="videogame" />
+      <div className={`${style.divImg}`}>
+        <img className={`${style.imgCard}`} src={props.image} alt="videogame" />
       </div>
       <div className={style.divRating}>
         <h3>Rating: ⭐{props.rating}</h3>

@@ -17,7 +17,7 @@
 /*------------------------------------------------------------------------*/
 .divName{
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   height: auto;
@@ -28,6 +28,10 @@
   border-start-end-radius: 12px;
   border-start-start-radius: 12px;
   background-color: rgb(210, 186, 219);
+}
+.divName h3{
+  text-align: center;
+  padding-left: 15px;
 }
 .link{
   text-decoration: none;
@@ -44,7 +48,15 @@
   width: 100%;
   border: 1px solid darkblue;
   object-fit: cover;
+}
 
+.imgEditar{
+  /* position: relative;
+  left: 35px; */
+  background-color: rgb(210, 186, 219);
+  width: 20px;
+  height: 20px;
+  padding-right: 2px;
 }
 
 /*                        RATING DEL JUEGO                                */
@@ -113,3 +125,4 @@
   color: white;
   font-size: 0.8rem;
 }
+

@@ -21,7 +21,7 @@ export const getVideoGames = () => {
     try {
       const response = await fetch(URL + '/videogames');
       const data = await response.json();
-      console.log(data[0])
+      //console.log(data[0])
       return dispatch({
         type: GET_VIDEOGAMES,
         payload: data

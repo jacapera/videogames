@@ -6,23 +6,6 @@ const { API_KEY } = process.env;
 const URL = `https://api.rawg.io/api/games?key=${API_KEY}`;
 
 const getVideoGames = async () => {
-  // Lógica para traer 100 games de la api y se guardan en la BD
-  // ------------------------------------------------------------------------------
-  // for(let i = 1; i < 6; i++){
-  //   let apiData = await axios.get(`${URL}&page=${i}`);
-  //     const pageGames = apiData.data.results.map(game => {
-  //       return {
-  //         id:`${uuidv4()}-${data.id}`,
-  //         idGameRawg: game.id,
-  //         name: game.name,
-  //         descripcion: game.description,
-  //         plataformas: game.platforms,
-  //         imagen: game.background_image,
-  //         fechaDeLanzamiento: game.released
-  //       }
-  //     });
-  //     videogames = [...videogames, ...pageGames];
-  //   }
     // Actualizara los campos especificados en updateOnDuplicate del registro duplicado
     // ------------------------------------------------------------------------------
     // const games = await Videogame.bulkCreate(videogames, {
@@ -55,7 +38,7 @@ const getVideoGames = async () => {
   const videoGamesBD = await Videogame.findAll({include:[Genre]});
   //if(videoGamesBD) videoGames = [...videoGames, ...videoGamesBD];
   videoGames = [...videoGames, ...videoGamesBD];
-  console.log(videoGames.length);
+  //console.log(videoGames.length);
   return videoGames;
 };
 

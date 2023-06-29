@@ -37,18 +37,19 @@ const SearchBar = (props) => {
   };
 
   const orderVideoGame = (order) => {
-    console.log(order)
+    //console.log(order)
     dispatch(orderVideoGames(order));
     setOrder("");
   };
 
   const getGameByName = (name) => {
-    //dispatch(isLoadingChange(true));
+    dispatch(isLoadingChange(true));
     //dispatch(getVideoGameByName(name));
-     dispatch(filterByName(name))
+    dispatch(filterByName(name))
+    dispatch(isLoadingChange(false));
     setName("");
   };
-  
+
   const filterBYGenre = (genre) => {
     dispatch(isLoadingChange(true));
     dispatch(filterGenre(genre))

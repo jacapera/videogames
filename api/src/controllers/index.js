@@ -4,7 +4,7 @@ const getVideoGameById = require('./videoGameControllers/getVideoGameById');
 const getGenres = require('./genreControllers/getGenres');
 const postVideoGame = require('./videoGameControllers/postVideoGame');
 const getPlatforms = require('./genreControllers/getPlatforms');
-
+const updateVideoGame = require('./videoGameControllers/updateVideoGame');
 
 module.exports = {
   getVideoGames,
@@ -13,4 +13,5 @@ module.exports = {
   getGenres,
   getPlatforms,
   postVideoGame,
+  updateVideoGame,
 }
