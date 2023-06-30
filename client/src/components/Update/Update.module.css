@@ -6,7 +6,7 @@
   height: 100vmax;
   justify-content: center;
   /* align-items: center; */
-  background-image: url('../../assets/2.webp');
+  background-image: url('../../assets/6.jpg');
   background-repeat: repeat-y;
   background-size: cover;
   padding: 15px;
@@ -19,7 +19,7 @@
 /*----------------------CONTENEDOR DEL FORMULARIO -------------------------*/
 .divForm{
   color: rgb(250, 246, 250);
-  background-color: rgb(29, 220, 226, .55);
+  background-color: rgba(167, 4, 4, 0.65);
   display: flex;
   flex-direction: column;
   width: 100;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import style from './Update.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGenres, getPlatforms, isLoadingChange } from '../../redux/action';
+import { getGenres, getPlatforms, getVideoGames, isLoadingChange } from '../../redux/action';
 import validation from '../Form/validation';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -105,12 +105,15 @@ const Update = (props) => {
     }));
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     let auxErrors = Object.values(formErrors).every(value => value === "");
     if(auxErrors) {
-      await axios.put(`http://localhost:3005/videogames/${id}`, createGameForm);
-      setMessage('Video Juego Actualizado con Exito!');
+      axios.put(`http://localhost:3005/videogames/${id}`, createGameForm)
+        .then( response => {
+          setMessage(response.data.message);
+          openModal();
+        });
       setCreateGameForm({
         name:"",
         description:"",
@@ -121,17 +124,16 @@ const Update = (props) => {
         released:"",
       })
       setFormErrors({});
-      openModal();
     }
   };
 
   const openModal = () => { setIsModalOpen(true) };
   const closeModal = () => {
     setIsModalOpen(false)
-    if(message === 'Video Juego Actualizado con Exito!'){
+    if(message !== ""){
       setMessage("");
-      dispatch(isLoadingChange());
-      navigate('/home');
+      navigate(`/detail/${id}`);
+      dispatch(getVideoGames());
     }
     setMessage("");
   };

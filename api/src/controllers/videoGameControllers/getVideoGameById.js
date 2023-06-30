@@ -35,8 +35,8 @@ const getVideoGameById = async (idVideogame) => {
   // Función para lógica de buscar
   const searchGame = async (idVideogame) => {
     if(idVideogame.includes("-")){
-      const gameFound = await findGameBD(idVideogame);
       let error;
+      const gameFound = await findGameBD(idVideogame);
       if(!gameFound){
         error = new Error(`El videogame con id: ${idVideogame} no se encuentra en la BD`);
         error.statusCode = 404;

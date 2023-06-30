@@ -71,13 +71,13 @@ const reducer = (state = initialState, action) => {
       }else {
         // Si ya tengo filtro busco en lo que esta renderizado
         allVideoGamesFiltered = state.allVideoGames.filter(game => game.genres.some(genre => genre.name === payload))
-        console.log('aqui', allVideoGamesFiltered);
+        //console.log('aqui', allVideoGamesFiltered);
       }
       // Si no llego a encontra el video game seteo mi estado de error
       if(!allVideoGamesFiltered.length) return{
         ...state,
         error: `No se encontro el video juego con genero ${payload}`,
-        allVideoGames:state.copyAllVideoGames,
+        //allVideoGames:state.copyAllVideoGames,
       }
       return {
         ...state,

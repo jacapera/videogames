@@ -11,18 +11,30 @@
   border-radius: 15px;
   padding: 5px;
   background-color: rgb(62, 4, 117);
+  transition: transform .6s;
+}
+.card:hover{
+  transform: scale(1.1);
+}
+.cardHover{
+  transition: transform 0s;
+}
+.cardHover:hover{
+  transform: none;
 }
 
 /*                        NOMBRE DEL JUEGO                                */
 /*------------------------------------------------------------------------*/
 .divName{
-  display: flex;
+  /* display: flex; */
+  display: grid;
+  grid-template-columns: 80% 20%;
+
   justify-content: space-between;
   align-items: center;
   width: 100%;
   height: auto;
   padding:2px;
-  text-align: center;
   font-weight: bold;
   border: 1px solid darkblue;
   border-start-end-radius: 12px;
@@ -35,6 +47,7 @@
 }
 .link{
   text-decoration: none;
+  text-align: center;
 }
 
 /*                        IMAGEN DEL JUEGO                                */
@@ -126,3 +139,85 @@
   font-size: 0.8rem;
 }
 
+/*                           MODAL PARA MOSTRAR MENSAJES                               */
+/*-------------------------------------------------------------------------------------*/
+.divBtnEliEdi{
+  display: flex;
+  gap: 2px;
+}
+.divBtnModal{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  gap: 15px;
+}
+.divModal{
+  display: flex;
+  height: 100vmax;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(20, 19, 19, 0.92);
+  border: 3px solid aqua;
+}
+.divModal:hover{
+  transform: none;
+}
+.divMessage{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  background-color: white;
+  width: 50%;
+  height: auto;
+  font-size: 0.7rem;
+  border: 3px solid black;
+  border-radius: 12px;
+  padding: 15px;
+  gap: 15px;
+  text-align: center;
+}
+.botonCierre {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  background-color: hsl(0, 100%, 50%);
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  transition: transform .3s;
+}
+.botonCierre:hover {
+  transform: scale(1.3);
+}
+
+.button {
+  width: auto;
+  display: inline-block;
+  padding: 8px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  color: #ece8e8;
+  background-color: #4b049c;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 0px;
+}
+.button:hover {
+  background-color: #ffbb00;
+  transform: scale(1.1)
+}

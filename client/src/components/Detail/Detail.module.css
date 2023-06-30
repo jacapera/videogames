@@ -109,3 +109,26 @@
   justify-content: center;
   align-items: center;
 }
+
+.button {
+  position: absolute;
+  left: 60px;
+  width: auto;
+  display: inline-block;
+  padding: 8px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  color: #ece8e8;
+  background-color: #4b049c;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 0px;
+}
+.button:hover {
+  background-color: #ffbb00;
+  transform: scale(1.1)
+}

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import style from './Detail.module.css';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -13,6 +14,11 @@ const Detail = (props) => {
   //let aux = videoGame.platforms?.map(item => item.platform?.name)
   //console.log(aux)
 
+  const volver = () => {
+
+  };
+
+
   // Estados del ciclo de vida del componente
   // ---------------------------------------------------------------------
   useEffect(async () => {
@@ -23,6 +29,9 @@ const Detail = (props) => {
 
   return (
     <div className={style.detail}>
+      <Link to={'/cards'}>
+        <button className={style.button}>Volver</button>
+      </Link>
       {/* NOMBRE */}
       <h1 className={style.detailName}>{videoGame.name}</h1>
       <hr className={style.hrName}></hr>

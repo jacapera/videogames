@@ -21,9 +21,7 @@ const getGenres = async () => {
       where: { idGenreRawg: genre.idGenreRawg }
     });
     // Si no existe el genero lo agregamos a nuestra tabla Genre
-    if (!existingGenre) {
-      await Genre.create(genre);
-    }
+    if (!existingGenre) await Genre.create(genre);
   }
   // Buscamos los generos que existan en nuestra BD y los retornamos
   const genresBD = await Genre.findAll();

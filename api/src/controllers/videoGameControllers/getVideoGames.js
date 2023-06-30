@@ -33,11 +33,13 @@ const getVideoGames = async () => {
         genres: game.genres,
       }
     });
-    videoGames = [...videoGames, ...pageGames];
+    //videoGames = [...videoGames, ...pageGames];
+    videoGames.push(...pageGames);
   };
   const videoGamesBD = await Videogame.findAll({include:[Genre]});
   //if(videoGamesBD) videoGames = [...videoGames, ...videoGamesBD];
-  videoGames = [...videoGames, ...videoGamesBD];
+  //videoGames = [...videoGames, ...videoGamesBD];
+  videoGames.push(...videoGamesBD);
   //console.log(videoGames.length);
   return videoGames;
 };

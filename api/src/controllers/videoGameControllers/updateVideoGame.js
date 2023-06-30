@@ -2,8 +2,6 @@ const { Op } = require('sequelize');
 const { Videogame, Genre } = require('../../db');
 const formatDate = require('../../helpers/formatDate');
 
-
-
 const updateVideoGame = async (id, changes) => {
   const { name, description, platforms, image, released, rating, genres } = changes;
   // Validación por si no se encuentra un genero para asociar
@@ -30,7 +28,7 @@ const updateVideoGame = async (id, changes) => {
     where: { name: gameChange.name },
     include: [Genre],
   });
-  return result;
+  return {result, message:'Video juego actualizado con !exito'}
 };
 
 

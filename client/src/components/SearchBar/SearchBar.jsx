@@ -43,17 +43,13 @@ const SearchBar = (props) => {
   };
 
   const getGameByName = (name) => {
-    dispatch(isLoadingChange(true));
     //dispatch(getVideoGameByName(name));
     dispatch(filterByName(name))
-    dispatch(isLoadingChange(false));
     setName("");
   };
 
   const filterBYGenre = (genre) => {
-    dispatch(isLoadingChange(true));
     dispatch(filterGenre(genre))
-    dispatch(isLoadingChange(false));
   };
 
   const openModal = () => { setIsModalOpen(true) };

@@ -74,4 +74,13 @@ router.put('/videogames/:id', async (req, res) => {
   }
 });
 
+router.delete('/videogames/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    res.status(204).json(await controllers.deleteVideoGame(id));
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 module.exports = router;

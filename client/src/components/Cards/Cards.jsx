@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getGenres, getVideoGames, isLoadingChange } from "../../redux/action";
 import Card from "../Card/Card";
 import Loading from "../Loading/Loading";
+import SearchBar from "../SearchBar/SearchBar";
 
 const Cards = (props) => {
 
@@ -40,12 +41,14 @@ const pageSelected = (event) => {
   const filteredGames = allVideoGames.slice(currentPage, currentPage + 15);
   // console.log("currenpage", currentPage)
   // console.log("filtrados: ", filteredGames)
-  // console.log("todos: ", allVideoGames)
+  //console.log("todos: ", allVideoGames)
 
   // Funciones del ciclo de vida del componente
 // ------------------------------------------------------------------------
   useEffect(() => {
+    // Me llevara a la pagina 1 si se presenta algún cambio en el estado
     setCurrentPage(0);
+    // Al cargar mi estado global y tenga elementos cancelamos el isLoading
     allVideoGames.length && dispatch(isLoadingChange(false));
 
     const dividir = (allVideoGames, size) => {
@@ -72,7 +75,8 @@ const pageSelected = (event) => {
   }, [allVideoGames]);
 
   useEffect(() => {
-    dispatch(getVideoGames());
+    // dispatch(isLoadingChange(true));
+    // dispatch(getVideoGames());
     dispatch(getGenres());
   }, []);
 
@@ -90,6 +94,7 @@ const pageSelected = (event) => {
         <Loading />
         ) : (
           <div>
+            <SearchBar />
             <div className={style.divCards}>
               {
                 filteredGames.map(game => <Card

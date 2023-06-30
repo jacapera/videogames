@@ -18,8 +18,8 @@ const NavBar = (props) => {
   // ----------------------------------------------------
   const irHome = () => {
     navigate('/home');
-    dispatch(isLoadingChange(true));
-    dispatch(getVideoGames());
+    // dispatch(isLoadingChange(true));
+    // dispatch(getVideoGames());
   };
 
   const irCreateVideoGame = () => {
