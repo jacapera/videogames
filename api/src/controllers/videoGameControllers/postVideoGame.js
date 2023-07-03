@@ -57,7 +57,7 @@ const postVideoGame = async (game) => {
     where: { name: newGameObj.name },
     include: [Genre],
   })
-  return newGameGenres;
+  return {newGameGenres, message:"Video juego creado con !exito"};
 };
 
 module.exports = postVideoGame;

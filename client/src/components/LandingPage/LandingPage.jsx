@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './LandingPage.module.css';
 import image from '../../assets/1.jpg';
 import { useNavigate } from 'react-router-dom';
@@ -15,6 +15,10 @@ const LandingPage = (props) => {
   const irHome = () => {
     navigate('/home');
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  },[])
 
   return (
     <div className={styles.landingPage}>

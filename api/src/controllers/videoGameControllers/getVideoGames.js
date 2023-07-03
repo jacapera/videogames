@@ -19,23 +19,27 @@ const getVideoGames = async () => {
         //   onConflict: { doNothing: true},
         // });
   let videoGames = [];
-  for(let i = 1; i < 6; i++){
-    const apiData = await axios.get(`${URL}&page=${i}`);
-    let pageGames = apiData.data.results.map(game => {
-      return {
-        id: game.id,
-        name: game.name,
-        description: game.description,
-        platforms: game.platforms,
-        image: game.background_image,
-        released: game.released,
-        rating: game.rating,
-        genres: game.genres,
-      }
-    });
-    //videoGames = [...videoGames, ...pageGames];
-    videoGames.push(...pageGames);
-  };
+  try {
+    for(let i = 1; i < 6; i++){
+      const apiData = await axios.get(`${URL}&page=${i}`);
+      let pageGames = apiData.data.results.map(game => {
+        return {
+          id: game.id,
+          name: game.name,
+          description: game.description,
+          platforms: game.platforms,
+          image: game.background_image,
+          released: game.released,
+          rating: game.rating,
+          genres: game.genres,
+        }
+      });
+      //videoGames = [...videoGames, ...pageGames];
+      pageGames.length && videoGames.push(...pageGames);
+    };
+  } catch (error) {
+    console.log(error.message);
+  }
   const videoGamesBD = await Videogame.findAll({include:[Genre]});
   //if(videoGamesBD) videoGames = [...videoGames, ...videoGamesBD];
   //videoGames = [...videoGames, ...videoGamesBD];

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import style from './Update.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGenres, getPlatforms, getVideoGames, isLoadingChange } from '../../redux/action';
+import { errorChange, getGenres, getPlatforms, getVideoGames, isLoadingChange, isModalOpenChange, messageChange } from '../../redux/action';
 import validation from '../Form/validation';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -21,8 +21,8 @@ const Update = (props) => {
     image:"",
     released:"",
   })
-  const [message, setMessage] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  //const [message, setMessage] = useState("");
+  //const [isModalOpen, setIsModalOpen] = useState(false);
   const [formValid, setFormValid] = useState(false);
   const [formErrors, setFormErrors] = useState({});
   const [touchedFields, setTouchedFields] = useState({});
@@ -30,7 +30,7 @@ const Update = (props) => {
 
   // Estados y acciones globales
   // ----------------------------------------------------------------
-  const { allGenres, allPlatforms } = useSelector(state => state);
+  const { allGenres, allPlatforms, message, isModalOpen } = useSelector(state => state);
   const dispatch = useDispatch();
 
   // Funciones locales
@@ -40,8 +40,9 @@ const Update = (props) => {
     // Validación para Rating
     if(value < 0 || value > 5 ){
       event.preventDefault();
-      setMessage(`El rating min es 0 y el max es 5`);
-      openModal();
+      dispatch(messageChange(`El rating min es 0 y el max es 5`));
+      dispatch(isModalOpenChange(true));
+      //openModal();
       return;
     }
 
@@ -49,13 +50,15 @@ const Update = (props) => {
     if(name === "genres"){
       const aux = createGameForm.genres.includes(value);
       if(aux){
-        setMessage(`El genero ${value} ya fue agregado`);
-        openModal();
+        dispatch(messageChange(`El genero ${value} ya fue agregado`));
+        dispatch(isModalOpenChange(true));
+        //openModal();
         return;
       }
       if(createGameForm.genres.length > 5){
-        setMessage(`Solo puedes agregar hasta 6 generos`);
-        openModal();
+        dispatch(messageChange(`Solo puedes agregar hasta 6 generos`));
+        dispatch(isModalOpenChange(true));
+        //openModal();
         return;
       }
       setCreateGameForm({...createGameForm, genres:[...createGameForm.genres, value]});
@@ -66,13 +69,15 @@ const Update = (props) => {
     if(name === 'platforms'){
       const aux = createGameForm.platforms.includes(value);
       if(aux){
-        setMessage(`La plataforma ${value} ya fue agregada`);
-        openModal();
+        dispatch(messageChange(`La plataforma ${value} ya fue agregada`));
+        dispatch(isModalOpenChange(true));
+        //openModal();
         return;
       }
       if(createGameForm.platforms.length > 5){
-        setMessage(`Solo puedes agregar hasta 6 plataformas`);
-        openModal();
+        dispatch(messageChange(`Solo puedes agregar hasta 6 plataformas`));
+        dispatch(isModalOpenChange(true));
+        //openModal();
         return;
       }
       setCreateGameForm({...createGameForm, platforms:[...createGameForm.platforms, value]});
@@ -111,9 +116,10 @@ const Update = (props) => {
     if(auxErrors) {
       axios.put(`http://localhost:3005/videogames/${id}`, createGameForm)
         .then( response => {
-          setMessage(response.data.message);
-          openModal();
-        });
+          dispatch(messageChange(response.data.message));
+          dispatch(isModalOpenChange(true));
+          //openModal();
+        })
       setCreateGameForm({
         name:"",
         description:"",
@@ -127,18 +133,22 @@ const Update = (props) => {
     }
   };
 
-  const openModal = () => { setIsModalOpen(true) };
+  const openModal = () => { dispatch(isModalOpenChange(true)) };
   const closeModal = () => {
-    setIsModalOpen(false)
-    if(message !== ""){
-      setMessage("");
+    dispatch(isModalOpenChange(false));
+    if(message === "Video juego actualizado con !exito"){
+      dispatch(isLoadingChange(true));
+      dispatch(messageChange(""));
       navigate(`/detail/${id}`);
       dispatch(getVideoGames());
     }
-    setMessage("");
+    dispatch(messageChange(""));
   };
-  //console.log(videoGame);
-  //console.log(createGameForm);
+
+  const volver = () => {
+    dispatch(isLoadingChange(false));
+    navigate('/cards')
+  };
 
   // Funciones Ciclo de vida del Componente
   // ---------------------------------------------------
@@ -147,23 +157,33 @@ const Update = (props) => {
     dispatch(getPlatforms());
   }, []);
 
-  useEffect(async () => {
-    const {data} = await axios.get(`http://localhost:3005/videogames/${id}`);
-    setCreateGameForm({
-      name: data.name,
-      description: data.description,
-      genres:data.genres.map(item => item.name),
-      rating: data.rating,
-      released: data.released,
-      image: data.image,
-      platforms: data.platforms.map(item => item.platform.name )
-    })
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, [message]);
+
+  useEffect(() => {
+    axios.get(`http://localhost:3005/videogames/${id}`)
+      .then(({data}) => {
+        setCreateGameForm({
+          name: data.name,
+          description: data.description,
+          genres:data.genres.map(item => item.name),
+          rating: data.rating,
+          released: data.released,
+          image: data.image,
+          platforms: data.platforms.map(item => item.platform.name )
+        })
+      }).catch(({message}) => {
+        console.log(message);
+        dispatch(errorChange(message));
+        navigate('/home');
+      });
   }, [id]);
 
   useEffect(() => {
-    console.log("Form: " , createGameForm);
+    //console.log("Form: " , createGameForm);
     const errors = validation(createGameForm);
-    console.log("TOUCH: ", touchedFields)
+    //console.log("TOUCH: ", touchedFields)
 
     if(Object.keys(touchedFields).length  > 0){
       setFormErrors({
@@ -176,7 +196,7 @@ const Update = (props) => {
         "platforms": errors.platforms || "",
       });
     }
-    console.log("FORMERROR: " , formErrors);
+    //console.log("FORMERROR: " , formErrors);
     if(Object.keys(errors).length === 0) setFormValid(true);
     else setFormValid(false);
   }, [createGameForm, touchedFields]);
@@ -269,8 +289,9 @@ const Update = (props) => {
               }
             </div>
             {/* BOTON DE ENVIAR FORMULARIO */}
-            <div>
+            <div className={style.divBtn}>
               <button className={style.button} disabled={!formValid} type='submit'>Actualizar</button>
+              <button className={style.button} onClick={volver}  >Cerrar</button>
             </div>
           </div>
         </form>
@@ -279,10 +300,10 @@ const Update = (props) => {
           {
             isModalOpen && (
               <div className={style.divModal}>
-                  <div className={style.divMessage}>
-                      <h1>{message}</h1>
+                <div className={style.divMessage}>
+                  <h1>{message}</h1>
                   <button onClick={closeModal} className={style.button} >Cerrar</button>
-                  </div>
+                </div>
               </div>
           )}
         </div>

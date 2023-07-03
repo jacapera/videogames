@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './Card.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import icono from '../../assets/editar.png'
 import axios from 'axios';
+import { getVideoGames, isLoadingChange } from '../../redux/action';
+import { useDispatch } from 'react-redux';
 
 const Card = (props) => {
   //props.platforms.map(item => console.log(item.platform?.name))
-  //console.log(props.id)
 
   // Estados locales
   // ----------------------------------------------------------------
   const [message, setMessage] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate  = useNavigate();
+  const dispatch = useDispatch();
 
   // Funciones locales
   // ----------------------------------------------------------------
@@ -21,6 +23,7 @@ const Card = (props) => {
     setIsModalOpen(true)
     setMessage(`Estas seguro que quieres eliminar el video juego !"${value}"`)
   };
+
   const closeModal = () => {
     setIsModalOpen(false)
     setMessage("");
@@ -28,10 +31,19 @@ const Card = (props) => {
 
   const deleteGame = async (event) => {
     const { value } = event.target;
+    console.log(value)
     await axios.delete(`http://localhost:3005/videogames/${value}`);
-    navigate('/cards');
-    closeModal();
+    dispatch(isLoadingChange(true));
+    dispatch(getVideoGames()).then(response =>{
+      navigate('/home');
+    });
   };
+
+  // Funciones ciclo de vida del componente
+  // ----------------------------------------------------------------
+  // useEffect(() =>{
+
+  // },[])
 
   return(
     <div className={`${style.card} ${isModalOpen && style.cardHover} `}>

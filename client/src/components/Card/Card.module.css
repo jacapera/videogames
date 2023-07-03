@@ -6,7 +6,7 @@
   justify-content: space-between;
   align-items: center;
   width: 250px;
-  height: 300;
+  height: auto;
   border: 2px solid rgb(20, 2, 87);
   border-radius: 15px;
   padding: 5px;
@@ -148,15 +148,15 @@
 .divBtnModal{
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
-  gap: 15px;
+  justify-content: space-between;
+  gap: 75px;
 }
 .divModal{
   display: flex;
   height: 100vmax;
   justify-content: center;
   align-items: center;
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;

@@ -1,3 +1,4 @@
+/* CONTENEDOR PRINCIPAL */
 .home{
   display: flex;
   justify-content: flex-start;
@@ -8,17 +9,50 @@
   background-repeat: repeat;
 }
 
+
+/*                           MODAL PARA MOSTRAR MENSAJES                               */
+/*-------------------------------------------------------------------------------------*/
+.divModal{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(20, 19, 19, 0.92);
+  border: 3px solid aqua;
+}
+.divMessage{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  background-color: white;
+  width: 50%;
+  height: fit-content;
+  font-size: 0.7rem;
+  border: 3px solid #340157;
+  border-radius: 12px;
+  padding: 15px;
+  gap: 15px;
+  text-align: center;
+}
+
+
+/* BOTON GENERALIZADO */
 .button {
-  font-family: 'Get IndieFlower-Regular';
-  width: 150px;
+  width: auto;
   display: inline-block;
   padding: 8px 20px;
-  font-size: 25px;
+  font-size: 1.5rem;
   font-weight: bold;
   text-align: center;
   text-decoration: none;
-  color: #0c0a0a;
-  background-color: #ffee00;
+  color:  #ebe1e1;
+  background-color: #340157;
   border-radius: 6px;
   border: none;
   cursor: pointer;

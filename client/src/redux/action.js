@@ -1,5 +1,6 @@
 import {
   ERROR,
+  ERROR_CHANGE,
   FILTER_BY_NAME,
   FILTER_GENRE,
   GET_GENRES,
@@ -7,6 +8,8 @@ import {
   GET_VIDEOGAMES,
   GET_VIDEOGAME_NAME,
   ISLOADING,
+  IS_MODAL_OPEN,
+  MESSAGE,
   ORDER_CARD,
   POST_VIDEOGAME,
   RESET_ERROR
@@ -27,6 +30,7 @@ export const getVideoGames = () => {
         payload: data
       });
     } catch (error) {
+      console.log(error.message);
       return dispatch({
         type: ERROR,
         payload: error.message
@@ -41,7 +45,7 @@ export const getVideoGameByName = (name) => {
       // const response = await fetch(`http://localhost:3005/videogames/name?name=${name}`);
       // const data = await response.json();
       const { data } = await axios.get(`${URL}/videogames/name?name=${name}`);
-      console.log('aqui en action', data)
+      //console.log('aqui en action', data)
       /*
       * Usando fetch no me entrega error y todo biene por la data lo cual no va entrar al catch
       * debo aplicar la siguente logica que esta comentada.
@@ -62,7 +66,7 @@ export const getVideoGameByName = (name) => {
         payload: data,
       })
     } catch (error) {
-      console.log(error)
+      //console.log(error.response.data.message);
       return dispatch({
         type: ERROR,
         payload: error.response.data.message,
@@ -80,9 +84,10 @@ export const getGenres = () => {
         payload: data
       })
     } catch (error) {
+      console.log(error);
       return dispatch({
         type: ERROR,
-        payload: error.response.data.message,
+        payload: error.message,
       })
     }
   };
@@ -97,6 +102,7 @@ export const getPlatforms = () => {
         payload: data,
       })
     } catch (error) {
+      //console.log(error.message);
       return dispatch({
         type: ERROR,
         payload: error.message,
@@ -109,11 +115,13 @@ export const postVideoGame = (game) => {
   return async (dispatch) => {
     try {
       const {data} = await axios.post(`${URL}/videogames`, game);
+      console.log(data);
       return dispatch({
         type: POST_VIDEOGAME,
         payload: data
       });
     } catch (error) {
+      console.log(error);
       return dispatch({
         type: ERROR,
         payload: error.message,
@@ -129,7 +137,20 @@ export const resetError = () => {
   }
 };
 
+export const errorChange = (mensaje) => {
+  return {
+    type: ERROR_CHANGE,
+    payload: mensaje
+  }
+};
+
 export const filterGenre = (genre) => {
+  if(!genre){
+    return{
+      type: ERROR,
+      payload: "Debes seleccionar un genero"
+    }
+  }
   return {
     type: FILTER_GENRE,
     payload: genre,
@@ -137,6 +158,12 @@ export const filterGenre = (genre) => {
 }
 
 export const filterByName = (nameGame) => {
+  if(!nameGame){
+    return{
+      type: ERROR,
+      payload: "Debes ingresar un parametro de busqueda"
+    }
+  }
   return {
     type: FILTER_BY_NAME,
     payload: nameGame,
@@ -144,6 +171,12 @@ export const filterByName = (nameGame) => {
 }
 
 export const orderVideoGames = (order) => {
+  if(!order){
+    return{
+      type: ERROR,
+      payload: "Debes seleccionar un tipo de ordenamiento"
+    }
+  }
   return {
     type: ORDER_CARD,
     payload: order
@@ -157,3 +190,16 @@ export const isLoadingChange = (boolean) => {
   }
 }
 
+export const messageChange = (mensaje) => {
+  return{
+    type: MESSAGE,
+    payload: mensaje,
+  }
+};
+
+export const isModalOpenChange = (boolean) => {
+  return {
+    type: IS_MODAL_OPEN,
+    payload: boolean,
+  }
+};

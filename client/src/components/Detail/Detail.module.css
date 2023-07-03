@@ -2,14 +2,22 @@
 /*-------------------------------------*/
 .detail{
   display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
   width: 100%;
-  height: 100vmax;
   padding: 15px;
   background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url('../../assets/4.jpg');
   background-size: cover;
+}
+.divContainer{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 0;
+  bottom: 0;
 }
 
 /*                  NAME               */
@@ -19,7 +27,8 @@
 }
 .hrName{
   color: white;
-  width: 90%;
+  width: 50%;
+  margin-top: 10px;
 }
 
 /*                 IMAGE               */
@@ -27,7 +36,7 @@
 .divDetailImg{
   display: flex;
   flex-direction: column;
-  width: 500px;
+  width: auto;
   padding: 15px;
   justify-content: center;
   align-items: center;
@@ -39,11 +48,13 @@
 .hrImg{
   color: white;
   width: 90%;
+  margin-top: 10px;
 }
 /*             DESCRIPCION             */
 /*-------------------------------------*/
 .divDetail{
   display: flex;
+  width: 80%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -91,6 +102,7 @@
 .hrPlatforms{
   color: white;
   width: 50%;
+  margin-top: 10px;
 }
 .divPlatforms{
   display: flex;
@@ -112,7 +124,7 @@
 
 .button {
   position: absolute;
-  left: 60px;
+  left: 0px;
   width: auto;
   display: inline-block;
   padding: 8px 20px;

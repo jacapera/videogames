@@ -9,7 +9,10 @@ const {
   POST_VIDEOGAME,
   ORDER_CARD,
   ISLOADING,
-  FILTER_BY_NAME
+  FILTER_BY_NAME,
+  MESSAGE,
+  ERROR_CHANGE,
+  IS_MODAL_OPEN
 } = require("./action-type");
 
 const initialState = {
@@ -17,9 +20,10 @@ const initialState = {
   copyAllVideoGames: [],
   allGenres: [],
   allPlatforms:[],
-  gameCreated:{},
   isLoading: true,
   error: "",
+  message:"",
+  isModalOpen: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -45,7 +49,7 @@ const reducer = (state = initialState, action) => {
       case FILTER_BY_NAME:
         const allGameCopy = [...state.allVideoGames].filter(game => game.name.toLowerCase().includes(payload.toLowerCase()));
         if(!allGameCopy.length){
-          return {...state, error: `El Video juego ${payload} no se encuentra en esta sección...intenta buscarlo en el listado general`}
+          return {...state, error: `El Video juego "${payload}" no se encuentra☹️`}
         }
         return {
           ...state,
@@ -107,7 +111,7 @@ const reducer = (state = initialState, action) => {
     case POST_VIDEOGAME:
       return {
         ...state,
-        gameCreated: payload,
+        message: payload.message,
         error:"",
       }
     case ERROR:
@@ -120,10 +124,25 @@ const reducer = (state = initialState, action) => {
         ...state,
         error: payload,
       }
+    case ERROR_CHANGE:
+      return {
+        ...state,
+        error: payload,
+      }
     case ISLOADING:
       return {
         ...state,
         isLoading: payload,
+      }
+    case IS_MODAL_OPEN:
+      return {
+        ...state,
+        isModalOpen: payload,
+      }
+    case MESSAGE:
+      return {
+        ...state,
+        message: payload,
       }
     default:
       return {

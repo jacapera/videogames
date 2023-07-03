@@ -5,12 +5,43 @@
   flex-direction: column;
   background-image: url('../../assets/3.avif');
   width: 100%;
-  height: 100;
+  height: fit-content;
   gap: 15px;
   justify-content: flex-start;
   padding: 15px;
   border: 1px solid black;
 }
+
+@media screen and (min-width: 300px) and (max-width:679px) {
+  .cards{
+    height: fit-content
+  }
+  .divCardsLenght{
+    height: fit-content !important;
+  }
+  .divCardsLenght div{
+    height: fit-content;
+  }
+  .divButton{
+    width: 80%;
+    gap: 5px;
+  }
+  .buttonPage{
+    width: 5px;
+  }
+}
+
+.divCardsLenght{
+  height: 100vmax;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+.divCardsLenght div{
+  height: fit-content;
+}
+/* .divCardsLenght div img{
+  height: auto;
+} */
 /*                 CARDS                     */
 /*-------------------------------------------*/
 .divCards{
@@ -29,7 +60,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
 }
 .divButton p{
   color: white;

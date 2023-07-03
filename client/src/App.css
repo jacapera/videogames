@@ -37,13 +37,16 @@
   }
 } */
 
-* {
+/* * {
   box-sizing: border-box;
   margin: 0px;
   padding: 0px;
-}
+} */
 .App{
   display: flex;
   flex-direction: column;
   height: 100vmax;
+}
+body{
+  margin: 0px;
 }

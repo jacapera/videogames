@@ -1,0 +1,20 @@
+.notfound{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 100vmax;
+  background-color: yellow;
+  padding: 20px;
+}
+
+h1{
+  margin: 20px;
+  width: 100%;
+  text-align: center;
+}
+.image{
+  margin: 15px;
+  width: 50%;
+}

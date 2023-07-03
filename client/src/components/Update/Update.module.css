@@ -1,20 +1,19 @@
 /*----------------------CONTENEDOR PRINCIPAL-------------------------*/
 .form{
   display: flex;
-  /* flex-direction: column; */
-  width: 100%;
+  width: auto;
   height: 100vmax;
   justify-content: center;
-  /* align-items: center; */
   background-image: url('../../assets/6.jpg');
   background-repeat: repeat-y;
   background-size: cover;
   padding: 15px;
   gap: 15px;
 }
-/* .form img{
-  width: auto;
-} */
+hr{
+  width: 100%;
+  margin-bottom: 15px;
+}
 
 /*----------------------CONTENEDOR DEL FORMULARIO -------------------------*/
 .divForm{
@@ -22,19 +21,25 @@
   background-color: rgba(167, 4, 4, 0.65);
   display: flex;
   flex-direction: column;
-  width: 100;
-  height: 650px;
+  justify-content: space-between;
+  align-items: center;
+  width: fit-content;
+  height: fit-content;
   padding: 15px;
   border: 2px solid aqua;
   border-radius: 10px;
 }
 .divForm h2{
   text-align: center;
+  margin: 0px;
 }
-@media screen and (min-width: 300px) and (max-width:630px) {
+@media screen and (min-width: 300px) and (max-width:679px) {
+  .form{
+    height: fit-content;
+  }
   .divForm{
     width: 310px;
-    height: auto;
+    height: fit-content;
   }
 }
 
@@ -243,4 +248,17 @@
   width: 100%;
   height: 100;
   background-image: url('../../assets/3.avif');
+}
+
+.divBtn{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.divBtn :nth-child(2) {
+  background-color: orangered;
+}
+.divBtn :nth-child(2):hover {
+  background-color: rgb(77, 13, 228);
 }

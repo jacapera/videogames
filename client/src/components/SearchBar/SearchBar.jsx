@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import style from './SearchBar.module.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { filterGenre, getVideoGameByName, resetError, orderVideoGameByName, isLoadingChange, filterByName, orderVideoGames } from '../../redux/action';
+import { filterGenre, filterByName, orderVideoGames } from '../../redux/action';
 
 const SearchBar = (props) => {
 
 // Estados locales
 // ----------------------------------------------------
   const [name, setName] = useState("");
-  const [message, setMessage] = useState("");
   const [genre, setGenre] = useState("")
   const [order, setOrder] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
 // Estados y actions globales
 // ----------------------------------------------------
@@ -50,23 +48,8 @@ const SearchBar = (props) => {
 
   const filterBYGenre = (genre) => {
     dispatch(filterGenre(genre))
+    setGenre("");
   };
-
-  const openModal = () => { setIsModalOpen(true) };
-  const closeModal = () => {
-    setIsModalOpen(false)
-    dispatch(resetError());
-    setMessage("");
-  };
-
-// Funciones Ciclo de vida del Componente
-// ---------------------------------------------------
-  useEffect(() => {
-    if(error !== ""){
-      setMessage(error);
-      openModal();
-    }
-  }, [error]);
 
   return(
     <div className={style.searchBar}>
@@ -117,18 +100,6 @@ const SearchBar = (props) => {
           </select>
           <button onClick={()=>orderVideoGame(order)} className={style.button}>Order</button>
         </div>
-      </div>
-      {/* Mostrar mensaje en Modal */}
-      <div>
-        {
-          isModalOpen && (
-            <div className={style.divModal}>
-                <div className={style.divMessage}>
-                    <h1>{message}</h1>
-                <button onClick={closeModal} className={style.button} >Cerrar</button>
-                </div>
-            </div>
-        )}
       </div>
     </div>
   )

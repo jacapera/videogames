@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import style from './Form.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGenres, getPlatforms, postVideoGame } from '../../redux/action';
+import { getGenres, getPlatforms, isLoadingChange, messageChange, postVideoGame } from '../../redux/action';
 import validation from './validation';
 import { useNavigate } from 'react-router-dom';
 
@@ -19,7 +19,7 @@ const Form = (props) => {
     image:"",
     released:"",
   })
-  const [message, setMessage] = useState("");
+  //const [message, setMessage] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formValid, setFormValid] = useState(false);
   const [formErrors, setFormErrors] = useState({});
@@ -28,7 +28,7 @@ const Form = (props) => {
 
   // Estados y acciones globales
   // ----------------------------------------------------------------
-  const { allGenres, allPlatforms } = useSelector(state => state);
+  const { allGenres, allPlatforms, message, error } = useSelector(state => state);
   const dispatch = useDispatch();
 
   // Funciones locales
@@ -38,7 +38,7 @@ const Form = (props) => {
     // Validación para Rating
     if(value < 0 || value > 5 ){
       event.preventDefault();
-      setMessage(`El rating min es 0 y el max es 5`);
+      dispatch(messageChange(`El rating min es 0 y el max es 5`));
       openModal();
       return;
     }
@@ -47,12 +47,12 @@ const Form = (props) => {
     if(name === "genres"){
       const aux = createGameForm.genres.includes(value);
       if(aux){
-        setMessage(`El genero ${value} ya fue agregado`);
+        dispatch(messageChange(`El genero ${value} ya fue agregado`));
         openModal();
         return;
       }
       if(createGameForm.genres.length > 5){
-        setMessage(`Solo puedes agregar hasta 6 generos`);
+        dispatch(messageChange(`Solo puedes agregar hasta 6 generos`));
         openModal();
         return;
       }
@@ -64,12 +64,12 @@ const Form = (props) => {
     if(name === 'platforms'){
       const aux = createGameForm.platforms.includes(value);
       if(aux){
-        setMessage(`La plataforma ${value} ya fue agregada`);
+        dispatch(messageChange(`La plataforma ${value} ya fue agregada`));
         openModal();
         return;
       }
       if(createGameForm.platforms.length > 5){
-        setMessage(`Solo puedes agregar hasta 6 plataformas`);
+        dispatch(messageChange(`Solo puedes agregar hasta 6 plataformas`));
         openModal();
         return;
       }
@@ -102,13 +102,13 @@ const Form = (props) => {
       [name]: true,
     }));
   };
-  
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    (error === "Network Error" || error === "Failed to featch") && navigate('/home')
     let auxErrors = Object.values(formErrors).every(value => value === "");
     if(auxErrors) {
-      dispatch(postVideoGame(createGameForm));
-      setMessage('Video Juego Creado con Exito!');
+      dispatch(postVideoGame(createGameForm))
       setCreateGameForm({
         name:"",
         description:"",
@@ -124,13 +124,18 @@ const Form = (props) => {
   };
 
   const openModal = () => { setIsModalOpen(true) };
+
   const closeModal = () => {
     setIsModalOpen(false)
-    if(message === 'Video Juego Creado con Exito!'){
-      setMessage("");
+    if(message === "Video juego creado con !exito"){
       navigate('/home');
     }
-    setMessage("");
+    dispatch(messageChange(""));
+  };
+
+  const volver = () => {
+    dispatch(isLoadingChange(false));
+    navigate('/cards')
   };
 
   // Funciones Ciclo de vida del Componente
@@ -141,9 +146,13 @@ const Form = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log("Form: " , createGameForm);
+    window.scrollTo(0, 0);
+  }, [message]);
+
+  useEffect(() => {
+    //console.log("Form: " , createGameForm);
     const errors = validation(createGameForm);
-    console.log("TOUCH: ", touchedFields)
+    //console.log("TOUCH: ", touchedFields)
 
     if(Object.keys(touchedFields).length  > 0){
       setFormErrors({
@@ -156,7 +165,7 @@ const Form = (props) => {
         "platforms": errors.platforms || "",
       });
     }
-    console.log("FORMERROR: " , formErrors);
+    //console.log("FORMERROR: " , formErrors);
     if(Object.keys(errors).length === 0) setFormValid(true);
     else setFormValid(false);
   }, [createGameForm, touchedFields]);
@@ -166,20 +175,36 @@ const Form = (props) => {
       <div className={style.divForm}>
         {/* TITULO */}
         <h2>Create Videogame</h2>
-        <hr /> <br />
+        <hr />
         <form onSubmit={handleSubmit} className={style.formCreateGame}>
           {/* IZQUIERDA */}
           <div className={style.formIzquierda} >
             {/* NOMBRE DEL VIDEOGAME */}
             <div className={style.divFormAtribute}>
               <label >Name: </label>
-              <input className={style.input} type="text" placeholder='ingresa un nombre' name='name' value={createGameForm.name} onChange={handleChangeForm} onBlur={handleBlur} autoComplete='false'/>
+              <input
+                className={style.input}
+                type="text"
+                placeholder='ingresa un nombre'
+                name='name'
+                value={createGameForm.name}
+                onChange={handleChangeForm}
+                onBlur={handleBlur}
+              />
               { touchedFields.name && formErrors.name && <p className={style.pError}>{formErrors.name}</p>}
             </div>
             {/* DESCRIPCION DEL VIDEOGAME */}
             <div className={style.divFormAtribute}>
               <label >Description: </label>
-              <textarea className={style.texarea} name="description" cols="30" rows="5" placeholder='ingresa una descripción' value={createGameForm.description} onChange={handleChangeForm} onBlur={handleBlur}></textarea>
+              <textarea
+                className={style.texarea}
+                name="description"
+                cols="30" rows="5"
+                placeholder='ingresa una descripción'
+                value={createGameForm.description}
+                onChange={handleChangeForm}
+                onBlur={handleBlur}
+              ></textarea>
               { touchedFields.description && formErrors.description && <p className={style.pError}>{formErrors.description}</p>}
             </div>
             {/* GENEROS A SELECCIONAR QUE SE RELACIONARAN DESPUES EN LA BASE DE DATOS */}
@@ -205,13 +230,27 @@ const Form = (props) => {
             {/* RATING VIDEOGAME */}
             <div className={style.divFormAtribute}>
               <label >Rating: </label>
-              <input className={style.input} type="number" name='rating' value={createGameForm.rating} onChange={handleChangeForm} onBlur={handleBlur}/>
+              <input
+                className={style.input}
+                type="number"
+                name='rating'
+                value={createGameForm.rating}
+                onChange={handleChangeForm}
+                onBlur={handleBlur}
+              />
               { touchedFields.rating && formErrors.rating && <p className={style.pError}>{formErrors.rating}</p>}
             </div>
             {/* RELEASED */}
             <div className={style.divFormAtribute}>
               <label >Released: </label>
-              <input className={style.input} type="Date" name='released' value={createGameForm.released} onChange={handleChangeForm} onBlur={handleBlur} />
+              <input
+                className={style.input}
+                type="Date"
+                name='released'
+                value={createGameForm.released}
+                onChange={handleChangeForm}
+                onBlur={handleBlur}
+              />
               { touchedFields.released && formErrors.released && <p className={style.pError}>{formErrors.released}</p>}
             </div>
           </div>
@@ -221,7 +260,15 @@ const Form = (props) => {
               {/* IMAGE */}
               <div className={style.divFormAtribute}>
                 <label >Image: </label>
-                <input className={style.input} type="text" placeholder='ingresa URL de la imagen' name='image' value={createGameForm.image} onChange={handleChangeForm} onBlur={handleBlur} />
+                <input
+                  className={style.input}
+                  type="text"
+                  placeholder='ingresa URL de la imagen'
+                  name='image'
+                  value={createGameForm.image}
+                  onChange={handleChangeForm}
+                  onBlur={handleBlur}
+                />
                 { touchedFields.image && formErrors.image && <p className={style.pError}>{formErrors.image}</p>}
                 <div className={style.divImg}>
                   <img className={style.imgCreateForm} src={createGameForm.image} alt="" />
@@ -249,8 +296,9 @@ const Form = (props) => {
               }
             </div>
             {/* BOTON DE ENVIAR FORMULARIO */}
-            <div>
+            <div className={style.divBtn}>
               <button className={style.button} disabled={!formValid} type='submit'>Crear</button>
+              <button className={style.button} onClick={volver}  >Cerrar</button>
             </div>
           </div>
         </form>

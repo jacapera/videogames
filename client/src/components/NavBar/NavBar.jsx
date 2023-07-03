@@ -1,7 +1,5 @@
 import React from 'react';
 import style from './NavBar.module.css'
-import { useDispatch } from 'react-redux';
-import { getVideoGames, isLoadingChange } from '../../redux/action';
 import { useNavigate } from 'react-router-dom';
 
 const NavBar = (props) => {
@@ -10,27 +8,15 @@ const NavBar = (props) => {
   // ----------------------------------------------------
   const navigate = useNavigate();
 
-  // Estados y actions globales
-  // ----------------------------------------------------
-  const dispatch = useDispatch();
-
   // Funciones locales
   // ----------------------------------------------------
   const irHome = () => {
     navigate('/home');
-    // dispatch(isLoadingChange(true));
-    // dispatch(getVideoGames());
   };
 
   const irCreateVideoGame = () => {
     navigate('/createVideoGame');
   };
-
-  // Funciones Ciclo de vida del Componente
-  // ---------------------------------------------------
-  // useEffect(() => {
-
-  // }, []);
 
   return(
     <div className={style.navBar}>

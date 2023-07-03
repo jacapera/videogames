@@ -8,6 +8,9 @@ export const POST_VIDEOGAME = 'POST_VIDEOGAME';
 export const ISLOADING = 'ISLOADING';
 export const ERROR = 'ERROR';
 export const RESET_ERROR = 'RESET_ERROR';
+export const ERROR_CHANGE = 'ERROR_CHANGE';
+export const MESSAGE = 'MESSAGE';
+export const IS_MODAL_OPEN = 'IS_MODAL_OPEN';
 
 // Busqueda en el backend
 // -----------------------------------------------------
