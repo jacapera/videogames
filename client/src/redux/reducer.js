@@ -37,6 +37,7 @@ const reducer = (state = initialState, action) => {
         copyAllVideoGames: payload,
         isLoading:false,
         error:"",
+        message:"",
       }
       // Busqueda por nombre en el backend
       case GET_VIDEOGAME_NAME:
@@ -60,6 +61,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         allGenres: payload,
         error:"",
+        message:"",
       }
     case FILTER_GENRE:
       // Declaro mi arreglo auxiliar
@@ -107,6 +109,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         allPlatforms:payload,
         error:"",
+        message:"",
       }
     case POST_VIDEOGAME:
       return {
@@ -117,7 +120,8 @@ const reducer = (state = initialState, action) => {
     case ERROR:
       return {
         ...state,
-        error: payload
+        error: payload,
+        message: payload,
       }
     case RESET_ERROR:
       return {

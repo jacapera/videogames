@@ -37,11 +37,12 @@ const Home = (props) => {
   },[]);
 
   useEffect(() => {
-    if(error !== "" && error !== "Failed to fetch" && error !== "Network Error"){
+    if(error !== "" && error !== "Failed to fetch" && error !== "Network Error"){ // 
       dispatch(messageChange(error));
       dispatch(isModalOpenChange(true));
       //openModal();
     }
+
   }, [error]);
 
   return (

@@ -119,7 +119,7 @@ const Form = (props) => {
         released:"",
       })
       setFormErrors({});
-      openModal();
+      error !== "Network Error" && openModal();
     }
   };
 

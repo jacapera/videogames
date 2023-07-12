@@ -31,14 +31,14 @@
   }
 }
 
-.divCardsLenght{
+/* .divCardsLenght{
   height: 100vmax;
   flex-wrap: wrap;
   gap: 2px;
 }
 .divCardsLenght div{
   height: fit-content;
-}
+} */
 /* .divCardsLenght div img{
   height: auto;
 } */

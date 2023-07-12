@@ -53,6 +53,14 @@ router.get('/platforms', async (req, res) => {
   }
 });
 
+router.get('/rating', async(req, res) => {
+  try {
+    return res.status(200).json(await controllers.getRatingTopVideoGames());
+  } catch (error) {
+    return res.status(500).json({message: error.message});
+  }
+});
+
 router.post('/videogames', async (req, res) => {
   try {
     return res.status(200).json(await controllers.postVideoGame(req.body));

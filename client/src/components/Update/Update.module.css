@@ -140,7 +140,7 @@ hr{
   display: flex;
   height: 100vmax;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -164,6 +164,7 @@ hr{
   padding: 15px;
   gap: 15px;
   text-align: center;
+  margin-top: 150px;
 }
 
 /*---------------- PARA TODOS LOS INPUTS DEL FORMULARIO -------------------------*/

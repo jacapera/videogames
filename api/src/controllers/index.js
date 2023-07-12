@@ -6,6 +6,7 @@ const postVideoGame = require('./videoGameControllers/postVideoGame');
 const getPlatforms = require('./genreControllers/getPlatforms');
 const updateVideoGame = require('./videoGameControllers/updateVideoGame');
 const deleteVideoGame = require('./videoGameControllers/deleteVideoGame');
+const getRatingTopVideoGames = require('./videoGameControllers/getRatingTopVideoGames');
 
 module.exports = {
   getVideoGames,
@@ -16,4 +17,5 @@ module.exports = {
   postVideoGame,
   updateVideoGame,
   deleteVideoGame,
+  getRatingTopVideoGames
 }
